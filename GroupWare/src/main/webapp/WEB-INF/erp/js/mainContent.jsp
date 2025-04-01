@@ -50,6 +50,7 @@ window.pageConfig = window.pageConfig || {
 	    send: {
 		      button: "메일 보내기",
 		      modal: "mail_insert",
+		      container:"msgSendListContainer",
 		      tabs: [
 		        { label: "보낸 쪽지", target: "send" }
 		      ]
