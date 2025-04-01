@@ -6,11 +6,12 @@
 <mapper namespace="notice.model.Notice">
 	<select id="getTotalCount" resultType="int">
 		select count(*) from notice
+		where temporary_save = 0
 		<if test="whatColumn == 'emp_nm'">
-			where emp_nm like #{keyword}
+			and emp_nm like #{keyword}
 		</if>
 		<if test="whatColumn == 'notice_title'">
-			where notice_title like #{keyword}
+			and notice_title like #{keyword}
 		</if>
 	</select>
 	
@@ -51,4 +52,9 @@
 		delete from notice
 		where notice_no = #{notice_no}
 	</delete>
+	
+	<insert id="saveNotice">
+		insert into notice
+		values(notice_seq.nextval,#{notice_title},#{notice_content},#{dept_nm},systimestamp,#{emp_no},#{emp_nm},1,#{notice_level},0)
+	</insert>
 </mapper>

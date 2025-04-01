@@ -52,7 +52,13 @@ public class NoticeDao {
 		int cnt = sqlSessionTemplate.delete(namespace + ".deleteNotice", notice_no);
 		System.out.println(cnt);
 		return cnt;
-	}
+	}//deleteNotice
+
+	public int saveNotice(NoticeBean notice) {
+		int cnt = sqlSessionTemplate.insert(namespace + ".saveNotice", notice);
+		System.out.println(cnt);
+		return cnt;
+	}//saveNotice
 
 	
 	

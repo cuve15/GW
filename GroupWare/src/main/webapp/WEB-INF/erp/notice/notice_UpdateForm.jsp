@@ -37,8 +37,7 @@
         <tr>
             <td align="center" class="notice-label-4">내용</td>
             <td>
-                <textarea name="notice_content" rows="40" cols="100">${notice.notice_content }</textarea>
-                <form:errors cssClass="err" path="notice_content"/>
+                <textarea name="notice_content" rows="41" cols="100">${notice.notice_content }</textarea>
             </td>
         </tr>
         <tr>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reply.model.Reply">
+	<insert id="writeReply">
+		insert into reply
+		values(reply_seq.nextval,#{reply_content},#{notice_no},#{emp_no},#{emp_nm},systimestamp)
+	</insert>
+	
+	<select id="selectAllReply" resultType="MyReply">
+			select * from reply
+			where notice_no = #{notice_no}
+			order by reply_dtm desc
+	</select>
+	
+	<delete id="deleteReply">
+		delete from reply
+		where reply_no = #{reply_no}
+	</delete>
+</mapper>

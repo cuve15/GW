@@ -17,10 +17,10 @@
 <c:if test="${totalCount != 0 }">
 	<table border="1" width="700" align="center">
 		<tr>
-			<th width="250" colspan="2">제 목</th>
-			<th width="100">작성자</th>
-			<th width="150">작성일</th>
-			<th width="50">조회</th>
+			<th width="450" align="center">제 목</th>
+			<th width="100" align="left">작성자</th>
+			<th width="100" align="center">작성일</th>
+			<th width="50" align="center">조회</th>
 		</tr>
 	</table>
 	<br><br>
@@ -28,10 +28,10 @@
 		<c:forEach var="nl" items="${noticeLists }">
 			<tr>
 				<c:if test="${nl.notice_level == 1 && nl.temporary_save == 0}">
-					<td align="center" width="50">
+					<td align="center" width="100">
 						필독
 					</td>
-					<td align="left" width="400">
+					<td align="left" width="350">
 						<a href= "notice_content.erp?notice_no=${nl.notice_no }&pageNumber=${pageInfo.pageNumber}&whatColumn=${param.whatColumn}&keyword=${param.keyword}">${nl.notice_title }</a>
 					</td>
 					<td align="left" width="100">
@@ -40,7 +40,7 @@
 					<td align="center" width="100">
 						<fmt:formatDate value="${nl.notice_dtm}" pattern="${nl.isWithin24Hours() ? 'HH:mm' : 'yyyy-MM-dd'}" />
 					</td>
-					<td align="center"width="50">
+					<td align="center" width="50">
 						${nl.notice_views }
 					</td>
 				</c:if>
@@ -52,11 +52,15 @@
 		<c:forEach var="nl" items="${noticeLists }">
 			<tr>
 				<c:if test="${nl.temporary_save == 0}">
-					<td align="center" width="50">
+					<td align="center" width="100">
 						${nl.dept_nm }
 					</td>
-					<td align="left" width="400">
+					<td align="left" width="350">
 						<a href= "notice_content.erp?notice_no=${nl.notice_no }&pageNumber=${pageInfo.pageNumber}&whatColumn=${param.whatColumn}&keyword=${param.keyword}">${nl.notice_title }</a>
+						<%-- <a href="#"
+        	   class="detail-link"
+        	   data-url="notice_content.erp"
+        	   data-id="${nl.notice_no }">${nl.notice_title }</a> --%>
 					</td>
 					<td align="left" width="100">
 						${nl.emp_nm }
@@ -64,7 +68,7 @@
 					<td align="center" width="100">
 						<fmt:formatDate value="${nl.notice_dtm}" pattern="${nl.isWithin24Hours() ? 'HH:mm' : 'yyyy-MM-dd'}" />
 					</td>
-					<td align="center"width="50">
+					<td align="center" width="50">
 						${nl.notice_views }
 					</td>
 				</c:if>
