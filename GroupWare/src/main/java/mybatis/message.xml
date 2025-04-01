@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="message.model.Message"> 
+
+    <select id="getAllReceive" resultType="MyMessage">
+	    select
+	        m.msg_no AS msg_no, 
+	        m.msg_title AS msg_title, 
+	        m.msg_content AS msg_content, 
+	        m.send_dtm AS send_dtm,
+	        m.send_emp_no AS send_emp_no,
+	        e1.emp_nm AS send_emp_name, 
+	        d1.dept_nm AS send_dept_nm,
+	        c1.cmm_nm AS send_position_nm, 
+	        m.receive_emp_no AS receive_emp_no,
+	        send_yn,
+	        read_yn
+	    FROM message m
+	    LEFT JOIN employee e1 ON m.send_emp_no = e1.emp_no
+	    LEFT JOIN department d1 ON e1.dept_cd = d1.dept_cd 
+	    LEFT JOIN cmm_code c1 ON e1.position_cd = c1.cmm_cd AND c1.cmm_class = 'POSITION_CD' 
+	    <where> 
+	        <if test="receive_emp_no != null">
+	            and m.receive_emp_no = #{receive_emp_no, jdbcType=VARCHAR}
+	            and m.del_yn != 'R'
+	        </if>
+	        <if test="whatColumn == 'send_emp_name'">
+	            and send_emp_name like #{keyword, jdbcType=VARCHAR}
+	        </if>
+	        <if test="whatColumn == 'msg_title'">
+	            and msg_title like #{keyword, jdbcType=VARCHAR}
+	        </if>
+	    </where>
+	    order by send_dtm desc
+	</select>
+	
+    <select id="getAllSend" resultType="MyMessage">
+	    select
+	        m.msg_no AS msg_no, 
+	        m.msg_title AS msg_title, 
+	        m.msg_content AS msg_content, 
+	        m.send_dtm AS send_dtm,
+	        m.send_emp_no AS send_emp_no,
+	        m.receive_emp_no AS receive_emp_no,
+	        e2.emp_nm AS receive_emp_name,
+	        d2.dept_nm AS receive_dept_nm, 
+	        c2.cmm_nm AS receive_position_nm,
+	        send_yn,
+	        read_yn
+	    FROM message m
+	    LEFT JOIN employee e2 ON m.receive_emp_no = e2.emp_no
+	    LEFT JOIN department d2 ON e2.dept_cd = d2.dept_cd  
+	    LEFT JOIN cmm_code c2 ON e2.position_cd = c2.cmm_cd AND c2.cmm_class = 'POSITION_CD'
+	    <where> 
+	        <if test="send_emp_no != null">
+	            and send_emp_no = #{send_emp_no, jdbcType=VARCHAR}
+	            and del_yn != 'S'
+	        </if>
+	        <if test="whatColumn == 'send_emp_name'">
+	            and send_emp_name like #{keyword, jdbcType=VARCHAR}
+	        </if>
+	        <if test="whatColumn == 'msg_title'">
+	            and msg_title like #{keyword, jdbcType=VARCHAR}
+	        </if>
+	    </where>
+	    order by send_dtm desc
+	</select>
+
+    <select id="ReceivetotalCount" resultType="int">
+        select count(*) 
+        from message
+        <where> 
+	        <if test="receive_emp_no != null">
+	        	and receive_emp_no = #{receive_emp_no, jdbcType=VARCHAR}
+	        	and del_yn != 'R'
+	        </if>
+	        <if test="whatColumn == 'send_emp_name'">
+	            and send_emp_name like #{keyword, jdbcType=VARCHAR}
+	        </if>
+	        <if test="whatColumn == 'msg_title'">
+	            and msg_title like #{keyword, jdbcType=VARCHAR}
+	        </if>
+        </where>
+    </select>
+    
+    <select id="SendtotalCount" resultType="int">
+        select count(*) 
+        from message
+        <where> 
+	        <if test="send_emp_no != null">
+	        	and send_emp_no = #{send_emp_no, jdbcType=VARCHAR}
+	        	and del_yn != 'S'
+	        </if>
+	        <if test="whatColumn == 'send_emp_name'">
+	            and send_emp_name like #{keyword, jdbcType=VARCHAR}
+	        </if>
+	        <if test="whatColumn == 'msg_title'">
+	            and msg_title like #{keyword, jdbcType=VARCHAR}
+	        </if>
+        </where>
+    </select>
+    
+    <select id="detailMessage" resultType="MyMessage">
+   		select
+            m.msg_no AS msg_no, 
+            m.msg_title AS msg_title, 
+            m.msg_content AS msg_content, 
+            m.send_dtm AS send_dtm,
+            m.send_emp_no AS send_emp_no,
+            e1.emp_nm AS send_emp_name, 
+            m.receive_emp_no AS receive_emp_no,
+            e2.emp_nm AS receive_emp_name,
+            send_yn,
+            read_yn,
+            del_yn
+        FROM message m
+        LEFT JOIN employee e1 ON m.send_emp_no = e1.emp_no
+        LEFT JOIN employee e2 ON m.receive_emp_no = e2.emp_no
+    	where msg_no = #{msg_no}
+    </select>
+    
+    <insert id="SendMessage">
+    	insert into message(msg_no, msg_title, msg_content, send_dtm, send_emp_no, receive_emp_no, send_yn, read_yn, del_yn)
+    	VALUES(message_seq.nextval, #{msg_title}, #{msg_content}, systimestamp, #{send_emp_no}, #{receive_emp_no}, 'Y', 'N', 'O')
+    </insert>
+    
+    <select id="readCount" resultType="int">
+    	select count(*)
+    	from message 
+    	<where> 
+    		read_yn = 'N'
+	        <if test="receive_emp_no != null">
+	        	and receive_emp_no = #{receive_emp_no, jdbcType=VARCHAR}
+	        	and del_yn != 'R'
+	        </if>
+	        <if test="whatColumn == 'send_emp_name'">
+	            and send_emp_name like #{keyword, jdbcType=VARCHAR}
+	        </if>
+	        <if test="whatColumn == 'msg_title'">
+	            and msg_title like #{keyword, jdbcType=VARCHAR}
+	        </if>
+        </where>
+    </select>
+    
+    <select id="sendCount" resultType="int">
+    	select count(*)
+    	from message 
+    	<where> 
+    		send_yn = 'N'
+	        <if test="send_emp_no != null">
+	        	and send_emp_no = #{send_emp_no, jdbcType=VARCHAR}
+	        	and del_yn != 'S'
+	        </if>
+	        <if test="whatColumn == 'send_emp_name'">
+	            and send_emp_name like #{keyword, jdbcType=VARCHAR}
+	        </if>
+	        <if test="whatColumn == 'msg_title'">
+	            and msg_title like #{keyword, jdbcType=VARCHAR}
+	        </if>
+        </where>
+    </select>
+    
+    <update id="read_ynMessage">
+    	update message set
+    	read_yn = 'Y'
+    	where msg_no = #{msg_no}
+    </update>
+    
+    <delete id="deleteMessage">
+    	delete from message
+    	where msg_no = #{msg_no}
+    </delete>
+    
+    <update id="deleteSendUpdateMessage">
+    	update message set
+    	del_yn = 'S'
+    	where msg_no = #{msg_no}
+    </update>
+    
+    <update id="deleteReceiveUpdateMessage">
+    	update message set
+    	del_yn = 'R'
+    	where msg_no = #{msg_no}
+    </update>
+    
+</mapper>

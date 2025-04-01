@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="employee.model.Employee">
+	
+	<select id="getAllEmployee" resultType="employee.model.EmployeeBean">
+		select
+		       e.emp_no
+		      ,e.emp_nm
+		      ,e.emp_status
+		      ,(select c.cmm_nm from cmm_code c where c.cmm_class='EMP_STATUS' and c.cmm_cd = e.emp_status) as emp_status_nm
+		      ,e.dept_cd
+		      ,(select d.dept_nm from department d where d.dept_cd = e.dept_cd) as dept_nm
+		      ,e.position_cd
+		      ,(select c.cmm_nm from cmm_code c where c.cmm_class = 'POSITION_CD' and c.cmm_cd = e.position_cd) as position_nm
+		      ,e.hire_date
+		      ,e.gender
+		      ,(select c.cmm_nm from cmm_code c where c.cmm_class='GENDER' and c.cmm_cd = e.gender) as gender_nm
+		      ,e.birth
+		      ,e.email
+		      from employee e
+		<if test="whatColumn == 'emp_nm'">
+		where e.emp_nm like #{keyword}
+		</if>
+		<if test="whatColumn == 'emp_no'">
+		where e.emp_no like #{keyword}
+		</if>
+		order by hire_date
+	</select>
+	
+	<select id="getAllEmployeeList" resultType="employee.model.EmployeeBean">
+	select
+		       e.emp_no
+		      ,e.emp_nm
+		      ,e.emp_status
+		      ,(select c.cmm_nm from cmm_code c where c.cmm_class='EMP_STATUS' and c.cmm_cd = e.emp_status) as emp_status_nm
+		      ,e.dept_cd
+		      ,(select d.dept_nm from department d where d.dept_cd = e.dept_cd) as dept_nm
+		      ,e.position_cd
+		      ,(select c.cmm_nm from cmm_code c where c.cmm_class = 'POSITION_CD' and c.cmm_cd = e.position_cd) as position_nm
+		      ,e.hire_date
+		      ,e.gender
+		      ,(select c.cmm_nm from cmm_code c where c.cmm_class='GENDER' and c.cmm_cd = e.gender) as gender_nm
+		      ,e.birth
+		      ,e.email
+		      from employee e
+		      order by hire_date
+	</select>
+	
+	<insert id="insertEmployee">
+		insert into employee(emp_no,emp_nm,dept_cd,position_cd,hire_date,gender,birth,email,pw)
+		values(#{emp_no},#{emp_nm},#{dept_cd},#{position_cd},#{hire_date},#{gender},#{birth},#{email},#{pw})
+	</insert>
+	
+	<select id="getEmployeeInfo" parameterType="employee.model.EmployeeBean" resultType="employee.model.EmployeeBean">
+		select
+		       e.emp_no
+		      ,e.emp_nm
+		      ,e.pw
+		      ,e.dept_cd
+		      ,(select d.dept_nm from department d where d.dept_cd = e.dept_cd) as dept_nm
+		      ,e.position_cd
+		      ,(select c.cmm_nm from cmm_code c where c.cmm_class = 'POSITION_CD' and c.cmm_cd = e.position_cd) as position_nm
+		      from employee e
+		      where e.emp_no = #{emp_no}
+		      and e.pw = #{pw}
+	</select>
+	
+	<select id="getAllEmployeeAuth" resultType="employee.model.EmployeeBean">
+		select
+		       e.emp_no
+		      ,e.emp_nm
+		      ,e.pw
+		      ,e.dept_cd
+		      ,(select d.dept_nm from department d where d.dept_cd = e.dept_cd) as dept_nm
+		      ,e.position_cd
+		      ,(select c.cmm_nm from cmm_code c where c.cmm_class = 'POSITION_CD' and c.cmm_cd = e.position_cd) as position_nm
+		      ,NVL(a.auth_cd,'없음') as currentAuth
+		      from employee e
+		      left join
+		      employee_auth a on e.emp_no = a.emp_no
+		      order by e.emp_no
+	
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+	select count(*) from employee
+	<if test="whatColumn == 'emp_nm'">
+		where emp_nm like #{keyword}
+		</if>
+		<if test="whatColumn == 'emp_no'">
+		where emp_no like #{keyword}
+		</if>
+	</select>
+	<select id="getOneEmp" resultType="employee.model.EmployeeBean">
+	select
+		       e.emp_no
+		      ,e.emp_nm
+		      ,e.emp_status
+		      ,(select c.cmm_nm from cmm_code c where c.cmm_class='EMP_STATUS' and c.cmm_cd = e.emp_status) as emp_status_nm
+		      ,e.dept_cd
+		      ,(select d.dept_nm from department d where d.dept_cd = e.dept_cd) as dept_nm
+		      ,e.position_cd
+		      ,(select c.cmm_nm from cmm_code c where c.cmm_class = 'POSITION_CD' and c.cmm_cd = e.position_cd) as position_nm
+		      ,e.hire_date
+		      ,e.gender
+		      ,(select c.cmm_nm from cmm_code c where c.cmm_class='GENDER' and c.cmm_cd = e.gender) as gender_nm
+		      ,e.birth
+		      ,e.email
+		      from employee e
+		      where e.emp_no = #{emp_no}
+	</select>
+	
+	
+	<update id="updateEmployee">
+	update employee set 
+	emp_nm = #{emp_nm}, dept_cd = #{dept_cd},position_cd = #{position_cd},hire_date = #{hire_date},gender = #{gender},birth = #{birth},email = #{email},pw=#{pw}
+	where emp_no = #{emp_no}
+	</update>
+</mapper>

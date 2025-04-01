@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="attach.model.Attach">
+	<insert id="insertAttach" parameterType="attach.model.AttachBean">
+		INSERT INTO attach (attach_id, con_key3, org_file_name,
+		server_file_name,
+		file_size, insert_dtm)
+		VALUES (attach_id_seq.nextval,
+		#{con_key3}, #{org_file_name},
+		#{server_file_name}, #{file_size},
+		sysdate)
+	</insert>
+
+	<select id="getServerFileNameByDocNo" resultType="string">
+		SELECT a.server_file_name
+		FROM attach a
+		JOIN appr_line al ON a.con_key3 = al.doc_no
+		WHERE al.doc_no = #{doc_no}
+	</select>
+
+</mapper>

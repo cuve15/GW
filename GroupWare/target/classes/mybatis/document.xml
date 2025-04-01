@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="document.model.Document">
+	<insert id="insertDocument"
+		parameterType="document.model.DocumentBean">
+		INSERT INTO document
+		(doc_no, doc_title, doc_content, emp_no, dept_cd, position_cd, appr_status, last_appr_dtm,
+		insert_dtm, update_dtm)
+		VALUES
+		(doc_no_seq.nextval,
+		#{doc_title, jdbcType=VARCHAR},
+		#{doc_content, jdbcType=VARCHAR},
+		#{emp_no, jdbcType=VARCHAR},
+		#{dept_cd, jdbcType=VARCHAR},
+		#{position_cd, jdbcType=VARCHAR},
+		'대기',
+		SYSDATE,
+		SYSDATE,
+		SYSDATE)
+	</insert>
+
+	<select id="selectOneNum" resultType="String">
+		SELECT doc_no
+		FROM (
+		SELECT
+		doc_no, RANK() OVER (ORDER BY doc_no DESC) AS rnk
+		FROM document
+		) WHERE
+		rnk = 1
+	</select>
+
+
+
+
+</mapper>

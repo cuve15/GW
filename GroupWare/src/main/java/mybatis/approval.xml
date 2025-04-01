@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="approval.model.Approval">
+	<insert id="insertApprovalLine">
+		INSERT INTO appr_line (
+		appr_no,
+		doc_no,
+		appr_order,
+		emp_no,
+		dept_cd,
+		position_cd,
+		appr_status,
+		appr_dtm,
+		appr_refuse_op
+		) VALUES (
+		appr_no_seq.NEXTVAL,
+		#{doc_no},
+		#{position_cd} - 1,
+		#{emp_no},
+		#{dept_cd},
+		#{position_cd},
+		#{appr_status},
+		sysdate,
+		#{appr_refuse_op,
+		jdbcType=VARCHAR}  <!-- typeHandler 제거 -->
+		)
+	</insert>
+
+
+	<select id="getTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM appr_line a
+		JOIN document d ON a.doc_no = d.doc_no
+		<where>
+			<if test="whatColumn == 'doc_content'">
+				d.doc_content LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="whatColumn == 'doc_title'">
+				d.doc_title LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
+	</select>
+
+	<select id="getApprovalList"
+		resultType="approval.model.ApprovalBean">
+		SELECT *
+		FROM appr_line
+		WHERE emp_no = #{emp_no}
+	</select>
+
+
+	<update id="companionApprovalStatus">
+		UPDATE appr_line
+		SET appr_status = '반려',  <!-- 결제 상태 변경 -->
+		appr_refuse_op = #{appr_refuse_op}  <!-- 반려 사유 저장 -->
+		WHERE appr_no = #{appr_no}
+	</update>
+
+	<update id="signOffDocument">
+		UPDATE appr_line
+		SET
+		appr_status = CASE
+		WHEN appr_order
+		= #{appr_order} AND #{position_cd} = 1 THEN '최종 승인'
+		WHEN appr_order =
+		#{appr_order} AND #{position_cd} = 2 THEN '결제 승인(부장)'
+		WHEN appr_order =
+		#{appr_order} AND #{position_cd} = 3 THEN '결제
+		승인(과장)'
+		ELSE appr_status
+		END,
+		appr_dtm = CASE
+		WHEN appr_order = #{appr_order} THEN SYSDATE
+		ELSE
+		appr_dtm
+		END,
+		appr_order = CASE
+		WHEN appr_order = #{appr_order} THEN
+		appr_order + 1 -- 결제 순서 증가
+		ELSE appr_order
+		END
+		WHERE appr_no = #{appr_no}
+		AND appr_order = #{appr_order}
+	</update>
+	<select id="getApprovalSignList"
+		resultType="approval.model.ApprovalBean">
+		SELECT *
+		FROM appr_line
+		WHERE appr_order = #{position_cd}
+	</select>
+
+</mapper>

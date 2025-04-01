@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias alias="MyEmployee"
+			type="employee.model.EmployeeBean" />
+		<typeAlias alias="MyMessage"
+			type="message.model.MessageBean" />
+		<typeAlias alias="MyNotice" type="notice.model.NoticeBean" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mybatis/employee.xml" />
+		<mapper resource="mybatis/admin.xml" />
+		<mapper resource="mybatis/message.xml" />
+		<mapper resource="mybatis/attach.xml" />
+		<mapper resource="mybatis/approval.xml" />
+		<mapper resource="mybatis/document.xml" />
+		<mapper resource="mybatis/notice.xml" />
+		<mapper resource="mybatis/Login.xml" />
+	</mappers>
+</configuration>
+
+<!-- SqlMapConfig.xml -->

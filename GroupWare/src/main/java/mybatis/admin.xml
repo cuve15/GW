@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="admin.model.Admin">
+	<select id="getAllDept" resultType="admin.model.DeptBean">
+		select * from department
+		order by dept_cd
+	</select>
+	
+	<select id="getAllCmmCode" resultType = "admin.model.CmmCodeBean">
+		select * from cmm_code
+	</select>
+	
+	<select id="getAllAuthInfo" resultType="admin.model.AuthInfoBean">
+		select * from auth_info
+	</select>
+	
+	<select id="getAuthByEmpNo" resultType="admin.model.EmployeeAuthBean">
+		select * from employee_auth 
+		where emp_no = #{emp_no} and auth_cd = #{auth_cd}
+	</select>
+	
+	<insert id="insertEmployeeAuth">
+		insert into employee_auth(auth_cd,emp_no)
+		values(#{auth_cd},#{emp_no})
+	</insert>
+	
+	<update id="updateEmployeeAuth">
+		update employee_auth set auth_cd = #{auth_cd} where emp_no = #{emp_no}
+	</update>
+	
+	<insert id="insertDept">
+	insert into department(dept_cd,dept_nm,p_dept_cd)
+	values(#{dept_cd},#{dept_nm},#{p_dept_cd})
+	</insert>
+	
+	<select id="getOneDept" resultType="admin.model.DeptBean">
+		select * from department
+		where dept_cd = #{dept_cd}
+	</select>
+	
+	<update id="updateDept">
+		update department set dept_nm = #{dept_nm},p_dept_cd = #{p_dept_cd}
+		where dept_cd = #{dept_cd}
+	</update>
+	
+	<insert id="insertCmmCode">
+		insert into cmm_code(cmm_class,cmm_cd,cmm_nm)
+					values(#{cmm_class},#{cmm_cd},#{cmm_nm})
+	
+	</insert>
+	
+	<select id="getOneCmmCode" resultType="admin.model.CmmCodeBean">
+	select * from cmm_code
+	where cmm_nm = #{cmm_nm}
+	
+	</select>
+	
+	<update id="updateCmmCode">
+	
+	update cmm_code set cmm_class = #{cmm_class},cmm_nm = #{cmm_nm}
+	where cmm_cd = #{cmm_cd}
+	
+	</update>
+	<delete id="deleteCmmCode">
+	delete from cmm_code where cmm_nm = #{cmm_nm}
+	</delete>
+	
+	<insert id="insertAuth">
+	insert into auth_info(auth_cd,auth_nm)
+	values(#{auth_cd},#{auth_nm})
+	</insert>
+</mapper>

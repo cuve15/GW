@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="commute.CommuteDao">
+
+    <select id="selectOne" resultType="commute.model.CommuteBean">
+        SELECT * FROM commute
+        WHERE work_date = #{work_date} AND emp_no = #{emp_no}
+    </select>
+
+    <insert id="check_in">
+        INSERT INTO commute (work_date, emp_no, clock_in, clock_out)
+        VALUES (#{work_date}, #{emp_no}, #{clock_in}, NULL)
+    </insert>
+
+    <update id="check_out">
+        UPDATE commute
+        SET clock_out = #{clock_out}
+        WHERE work_date = #{work_date} AND emp_no = #{emp_no}
+    </update>
+
+    <!-- 사장 -->
+    <select id="findAll" resultType="commute.model.CommuteBean">
+        SELECT d.DEPT_NM, e.emp_no, e.emp_nm, c.CMM_NM
+        FROM employee e
+        INNER JOIN department d ON d.DEPT_CD = e.dept_cd
+        INNER JOIN cmm_code c ON e.position_cd = c.CMM_CD
+        WHERE c.CMM_CLASS = 'POSITION_CD'
+        <if test="type != null and keyword != null">
+            AND
+            <choose>
+                <when test="type == 'emp_name'">e.emp_nm LIKE CONCAT('%', #{keyword}, '%')</when>
+                <when test="type == 'dept_nm'">d.DEPT_NM LIKE CONCAT('%', #{keyword}, '%')</when>
+                <when test="type == 'position'">c.CMM_NM LIKE CONCAT('%', #{keyword}, '%')</when>
+            </choose>
+        </if>
+    </select>
+
+    <!-- 인사팀 -->
+    <select id="findAllExcludingPresident" resultType="commute.model.CommuteBean">
+        SELECT d.DEPT_NM, e.emp_no, e.emp_nm, c.CMM_NM
+        FROM employee e
+        INNER JOIN department d ON d.DEPT_CD = e.dept_cd
+        INNER JOIN cmm_code c ON e.position_cd = c.CMM_CD
+        WHERE c.CMM_CLASS = 'POSITION_CD'
+        AND c.CMM_NM != '사장'
+        <if test="type != null and keyword != null">
+            AND
+            <choose>
+                <when test="type == 'emp_name'">e.emp_nm LIKE CONCAT('%', #{keyword}, '%')</when>
+                <when test="type == 'dept_nm'">d.DEPT_NM LIKE CONCAT('%', #{keyword}, '%')</when>
+                <when test="type == 'position'">c.CMM_NM LIKE CONCAT('%', #{keyword}, '%')</when>
+            </choose>
+        </if>
+    </select>
+
+    <!-- 부장 -->
+    <select id="findByDepartmentExcludingPresident" resultType="commute.model.CommuteBean">
+        SELECT d.DEPT_NM, e.emp_no, e.emp_nm, c.CMM_NM
+        FROM employee e
+        INNER JOIN department d ON d.DEPT_CD = e.dept_cd
+        INNER JOIN cmm_code c ON e.position_cd = c.CMM_CD
+        WHERE c.CMM_CLASS = 'POSITION_CD'
+        AND d.DEPT_NM = #{DEPT_NM}
+        AND c.CMM_NM != '사장'
+        <if test="type != null and keyword != null">
+            AND
+            <choose>
+                <when test="type == 'emp_name'">e.emp_nm LIKE CONCAT('%', #{keyword}, '%')</when>
+                <when test="type == 'dept_nm'">d.DEPT_NM LIKE CONCAT('%', #{keyword}, '%')</when>
+                <when test="type == 'position'">c.CMM_NM LIKE CONCAT('%', #{keyword}, '%')</when>
+            </choose>
+        </if>
+    </select>
+
+    <!-- 사원 -->
+    <select id="findByEmpId" resultType="commute.model.CommuteBean">
+        SELECT d.DEPT_NM, e.emp_no, e.emp_nm, c.CMM_NM
+        FROM employee e
+        INNER JOIN department d ON d.DEPT_CD = e.dept_cd
+        INNER JOIN cmm_code c ON e.position_cd = c.CMM_CD
+        WHERE c.CMM_CLASS = 'POSITION_CD'
+        AND e.emp_no = #{empId}
+    </select>
+
+</mapper>

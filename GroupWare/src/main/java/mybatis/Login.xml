@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="QRLogin.QRLoginBean">
+
+	<insert id="save">
+		insert into login (uuid, emp_id, created_at)
+		values (#{uuid}, #{empId}, #{createdAt})
+	</insert>
+
+	<select id="selectone" resultType="int">
+		select count(*) from login where uuid = #{uuid}
+	</select>
+
+	<select id="check_one" resultType="int">
+		select count(*) from login
+		where uuid = #{uuid}
+		and code = #{code}
+	</select>
+
+	<update id="updateCode">
+		update login set code = #{code}
+		where uuid = #{uuid}
+	</update>
+
+	<select id="selectCreatedAtByUUID" resultType="java.util.Date">
+		select created_at from login where uuid = #{uuid}
+	</select>
+
+	<select id="selectemail" resultType="string">
+		select email from employee where empId =# {empId}
+
+	</select>
+	<select id="selectoneEmpID" resultType="int">
+		select count(*) from employee where empId = #{inputEmpId}
+	</select>
+
+	<select id="findEmployeeByEmpId">
+		select * from employee where empId =#{empId}
+	</select>
+	
+
+</mapper>

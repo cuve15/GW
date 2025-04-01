@@ -1,0 +1,140 @@
+/* 전체 테이블 스타일 */
+.notice-form-table {
+    width: 85%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* 테이블 셀 스타일 */
+.notice-form-table td {
+    padding: 15px;
+    vertical-align: middle;
+}
+
+.notice-label-1 {
+    font-size: 16px;
+    text-align: right;
+    color: #333;
+    position: relative;
+    top: -24px;
+}
+
+.notice-label-2 {
+    font-size: 16px;
+    text-align: right;
+    color: #333;
+    position: relative;
+    top: -13px;
+}
+
+.notice-label-3 {
+    font-size: 16px;
+    text-align: right;
+    color: #333;
+    position: relative;
+    top: -16px;
+}
+
+.notice-label-4 {
+    font-size: 16px;
+    text-align: right;
+    color: #333;
+    position: relative;
+    top: -116px;
+}
+
+/* 입력 필드 및 텍스트 영역 스타일 */
+.notice-form-table input[type="text"],
+.notice-form-table input[type="file"],
+.notice-form-table textarea,
+.notice-form-table select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    box-sizing: border-box; /* 패딩을 포함한 너비 계산 */
+    transition: border 0.3s ease;
+}
+
+.notice-form-table input[type="text"]:focus,
+.notice-form-table input[type="file"]:focus,
+.notice-form-table textarea:focus,
+.notice-form-table select:focus {
+    border: 1px solid #0078d4;
+}
+
+/* 텍스트 영역 스타일 */
+.notice-form-table textarea {
+    height: 250px;
+    resize: vertical;
+}
+
+/* 버튼 스타일 */
+.notice-form-buttons {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.notice-form-buttons input[type="button"],
+.notice-form-buttons input[type="submit"] {
+    background-color: #0078d4;
+    color: white;
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+}
+
+.notice-form-buttons input[type="button"]:hover,
+.notice-form-buttons input[type="submit"]:hover {
+    background-color: #005b99;
+}
+
+/* 에러 메시지 스타일 */
+.err {
+    font-size: 12px;
+    color: red;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* 목록보기 링크 스타일 */
+.notice-list-link {
+    text-align: right;
+    display: block;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #0078d4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.notice-list-link:hover {
+    color: #005b99;
+    text-decoration: underline;
+}
+
+/* 필수 입력 체크박스 스타일 */
+.notice-important-checkbox {
+    margin-left: 10px;
+    vertical-align: middle;
+    position: relative;
+    bottom: 4px;
+}
+
+/* 부서 선택, 체크박스 간격 */
+.notice-form-table select,
+.notice-form-table input[type="checkbox"] {
+    margin-top: 8px;
+}
