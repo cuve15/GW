@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import attach.controller.FileUploadController;
+import attach.model.AttachBean;
+import attach.model.AttachDao;
 import employee.model.EmployeeBean;
 import employee.model.EmployeeDao;
 import message.model.MessageBean;
@@ -34,6 +36,9 @@ public class MessageWriteController {
 	
 	@Autowired
 	EmployeeDao edao;
+	
+	@Autowired
+	AttachDao attachDao;
 	
 	@RequestMapping(value=command, method=RequestMethod.GET)
 	public String doAction(HttpServletRequest request) {
@@ -60,8 +65,8 @@ public class MessageWriteController {
 //		System.out.println("send_emp_no : " + mb.getSend_emp_no());
 		
 		if (!file.isEmpty()) {
-		    System.out.println("∆ƒ¿œ ¿Ã∏ß: " + file.getOriginalFilename());
-		    System.out.println("∆ƒ¿œ ≈©±‚: " + file.getSize());
+		    System.out.println("ÌååÏùº Ïù¥Î¶Ñ: " + file.getOriginalFilename());
+		    System.out.println("ÌååÏùº ÌÅ¨Í∏∞: " + file.getSize());
 		}
 		
 		List<EmployeeBean> list = edao.getAllEmployeeList();
@@ -70,12 +75,18 @@ public class MessageWriteController {
 		
 		mav.addObject("list",list);
 		
-		if(mb.getMsg_title() == null) {
-			mb.setMsg_title(file.getOriginalFilename());
+//		System.out.println("msg_title1 : " + mb.getMsg_title());
+//		System.out.println("msg_content1 : " + mb.getMsg_content());
+		
+		if (mb.getMsg_title() == null || mb.getMsg_title().trim().isEmpty()) {
+		    mb.setMsg_title(file.getOriginalFilename());
 		}
-		if(mb.getMsg_content() == null) {
-			mb.setMsg_content(file.getOriginalFilename());
+		if (mb.getMsg_content() == null || mb.getMsg_content().trim().isEmpty()) {
+		    mb.setMsg_content(file.getOriginalFilename());
 		}
+		
+//		System.out.println("msg_title2 : " + mb.getMsg_title());
+//		System.out.println("msg_content2 : " + mb.getMsg_content());
 		
 		/*
 		 * if(result.hasErrors()) { mav.setViewName(getPage); return mav; }
@@ -86,7 +97,7 @@ public class MessageWriteController {
 		if(mb.getReceive_emp_no() != null) {
 			
 			String input = mb.getReceive_emp_no();
-			emp_no_arr = input.split("\\s*,\\s*"); // ∞¯πÈ∞˙ ƒﬁ∏∂ ¡¶∞≈ »ƒ πËø≠∑Œ ∫Ø»Ø
+			emp_no_arr = input.split("\\s*,\\s*"); // Í≥µÎ∞±Í≥º ÏΩ§Îßà Ï†úÍ±∞ ÌõÑ Î∞∞Ïó¥Î°ú Î≥ÄÌôò
 			
 		}
 
@@ -100,8 +111,21 @@ public class MessageWriteController {
 			mb.setReceive_emp_no(emp_no_arr[i]);
 			
 			cnt = mdao.SendMessage(mb); 
-	
+			
+			String msg_no_seq = mdao.selectOneNum();
+			
+			System.out.println("msg_no_seq : " + msg_no_seq);
+			
+			AttachBean attach = new AttachBean();
+	        attach.setCon_key1(msg_no_seq); 
+	        attach.setOrg_file_name(file.getOriginalFilename());
+	        attach.setServer_file_name(savedFileName);
+	        attach.setFile_size(file.getSize());
+
+	        int attachInsertCount = attachDao.insertAttach(attach);
+			
 			mav.setViewName(gotoPage);
+			
 		}
 		
 		if(cnt == -1) {

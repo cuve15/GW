@@ -24,22 +24,33 @@ public class FileDownloadController {
     private final String command = "download.erp";
     private final String getPage = "approval.approvalList";
     
-    private static final String GITHUB_TOKEN;  // GitHub 占쎈꽅占쎄쿃
-    private static final String GITHUB_API_URL; // GitHub API 疫꿸퀡�궚 URL
+    private static final String GITHUB_API_URL;  // GitHub API 疫꿸퀡�궚 URL
+    private static final String GITHUB_TOKEN; // GitHub 占쎈꽅占쎄쿃
   
     @Autowired
     private AttachDao attachDao;
 
     @RequestMapping(command)
     @ResponseBody
-    public ResponseEntity<byte[]> downloadFileFromGitHub(@RequestParam("doc_no") String doc_no) throws Exception {
-
-        String serverFileName = attachDao.getServerFileNameByDocNo(doc_no);
+    public ResponseEntity<byte[]> downloadFileFromGitHub(@RequestParam(value="doc_no", required = false) String doc_no,
+    													@RequestParam(value="msg_no", required = false) String msg_no)
+    																							throws Exception {
+    	String serverFileName = null;
+    	
+    	if(doc_no != null) {
+    		serverFileName = attachDao.getServerFileNameByDocNo(doc_no);
+    	}else if(msg_no != null) {
+    		serverFileName = attachDao.getServerFileNameByDocNo(msg_no);
+    	}
+    	
+    	System.out.println("msg_no : " + msg_no);
+    	System.out.println("serverFileName : " + serverFileName);
+    	
         if (serverFileName == null) {
         	
         }
 
-        String filePath = "uploads/" + serverFileName;  
+        String filePath = "mail/" + serverFileName;  
         String apiUrl = GITHUB_API_URL + filePath; 
   
         RestTemplate restTemplate = new RestTemplate();

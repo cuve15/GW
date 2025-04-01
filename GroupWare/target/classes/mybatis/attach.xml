@@ -5,20 +5,30 @@
 
 <mapper namespace="attach.model.Attach">
 	<insert id="insertAttach" parameterType="attach.model.AttachBean">
-		INSERT INTO attach (attach_id, con_key3, org_file_name,
-		server_file_name,
-		file_size, insert_dtm)
-		VALUES (attach_id_seq.nextval,
-		#{con_key3}, #{org_file_name},
-		#{server_file_name}, #{file_size},
+		INSERT INTO attach (attach_id, con_key1, org_file_name,server_file_name,file_size, insert_dtm)
+		VALUES (
+		attach_id_seq.nextval,
+		#{con_key1}, 
+		#{org_file_name},
+		#{server_file_name}, 
+		#{file_size},
 		sysdate)
 	</insert>
 
 	<select id="getServerFileNameByDocNo" resultType="string">
 		SELECT a.server_file_name
 		FROM attach a
-		JOIN appr_line al ON a.con_key3 = al.doc_no
-		WHERE al.doc_no = #{doc_no}
+		JOIN message m ON a.con_key1 = m.msg_no
+		WHERE m.msg_no = #{msg_no}
+	</select>
+	
+	<select id="getOneSelect" resultType="attach.model.AttachBean">
+		SELECT a.server_file_name,
+		a.org_file_name,
+		a.file_size
+		FROM attach a
+		JOIN message m ON a.con_key1 = m.msg_no
+		WHERE m.msg_no = #{msg_no}
 	</select>
 
 </mapper>

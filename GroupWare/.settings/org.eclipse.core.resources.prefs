@@ -3,5 +3,7 @@ encoding//src/main/java/Login/controller/LoginController.java=UTF-8
 encoding//src/main/java/approval/controller/ApprovalRequestController.java=UTF-8
 encoding//src/main/java/attach/controller/FileDownloadController.java=UTF-8
 encoding//src/main/java/attach/controller/FileUploadController.java=UTF-8
+encoding//src/main/java/attach/model/AttachDao.java=UTF-8
 encoding//src/main/java/commute/controller/CommuteListController.java=UTF-8
 encoding//src/main/java/employee/model/EmployeeBean.java=UTF-8
+encoding//src/main/java/message/controller/MessageWriteController.java=UTF-8

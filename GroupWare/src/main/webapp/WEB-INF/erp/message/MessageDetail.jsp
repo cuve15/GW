@@ -27,6 +27,7 @@
 
 <div id="receivelist">
     <div style="display: flex; padding: 10px; font-weight: bold; border-bottom: 2px solid #000; gap: 20px;">
+    <c:if test="${mb.send_emp_no != sessionScope.emp_no }">
 	    <div style="min-width: 50px;" align="center">
 	    	<a href="javascript:void(0)" onclick="MessageReply('${mb.msg_no}')">답장</a>
 	    </div>
@@ -39,6 +40,7 @@
 	    <div>
 	    	|
 	    </div>
+    </c:if>
 	    <div style="min-width: 50px;" align="center">
 	    	<a href="javascript:void(0)" onclick="MessageDelete('${mb.msg_no}')">삭제</a>
 	    </div>
@@ -55,6 +57,10 @@
 <div  style="border-bottom: 1px solid #ddd;">
 	<div style="margin: 30px auto; width: 70%; padding: 10px 20px;">
 	    ${mb.msg_content }
+	</div>
+	<div>
+		<a href="download.erp?msg_no=${mb.msg_no}">다운로드
+		</a>
 	</div>
 </div>
 

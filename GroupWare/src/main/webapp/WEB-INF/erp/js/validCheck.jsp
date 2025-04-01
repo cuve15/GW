@@ -52,12 +52,13 @@ window.formSubmitConfig = window.formSubmitConfig || {
 			mail_reply : {
 				url : "ymh_messageReply.erp",
 				formId : "MessageReplyForm",
-				target : "received"
+				target : "received",
+				userFormData: true
 			},
 			mail_pass : {
 				url : "ymh_messagePass.erp",
 				formId : "MessagePassForm",
-				target : "received"
+				target : "received",
 			},
 			 notice_insert: {
 				    url: "notice_write.erp",
@@ -70,6 +71,18 @@ window.formSubmitConfig = window.formSubmitConfig || {
 	$(document).off('click', '#submitBtn').on('click', '#submitBtn', function () {
 		  const config = formSubmitConfig[$(this).data('modal')];
 		  const $form = $('#' + config.formId);
+		  
+		  const requiredFileForms = ["MessageWriteForm", "MessageReplyForm"];
+		    if (requiredFileForms.includes(config.formId)) {  
+		        const fileInput = $('input[name="file"]', $form)[0];
+
+		        if (!fileInput.files || fileInput.files.length === 0) {
+		            alert("파일을 첨부해야 합니다.");
+		            event.preventDefault(); // 폼 전송 방지
+		            return;
+		        }
+		    }
+		  
 		  let formData;
 		  if(config.userFormData){
 			  formData = new FormData($form[0]);

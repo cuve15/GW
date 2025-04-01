@@ -113,4 +113,11 @@ public class MessageDao {
 		
 		return cnt;
 	}
+
+	public String selectOneNum() {
+		
+		String msg_no_seq = sqlSessionTemplate.selectOne(namespace + ".selectOneNum");
+		
+		return msg_no_seq;
+	}
 }

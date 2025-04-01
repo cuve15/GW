@@ -26,13 +26,13 @@
 	
 </style>
 
-<form:form action="ymh_messageReply.erp" commandName="mb" method="post" id="MessageReplyForm">
+<form action="ymh_messageReply.erp" method="post" id="MessageReplyForm">
 	<input type="hidden" value="${sessionScope.emp_no }" name="send_emp_no">
 	<input type="hidden" value="${mb2.send_emp_no }" name="receive_emp_no">
 	<input type="hidden" value="${mb2.msg_no }" name="msg2_no">
+	<input type="hidden" name="redirectPage" value="messageDetail.erp?msg_no=${mb2.msg_no}">
     <div>
         <div>
-            <!-- 화살표 버튼을 누르면 체크박스 목록이 나타남 -->
             <label>받는사람 : </label>
 			<label>${mb2.send_emp_name}</label>
         </div>
@@ -41,7 +41,6 @@
         <div>
             <label>제목</label>
             <input type="text" name="msg_title" value="${mb.msg_title }">
-            <form:errors cssClass="err" path="msg_title"/>
         </div>
     </div>
    
@@ -49,10 +48,15 @@
         <div>
             <label>내용</label>
             <textarea cols="40" rows="5" name="msg_content">${mb.msg_content }</textarea>
-            <form:errors cssClass="err" path="msg_content"/>
         </div>
     </div>
+    
+    <div>
+		<div>
+			<label>첨부파일</label> <input type="file" name="file" required />
+		</div>
+	</div>
 	<input type="button" value="메일 전송" id="submitBtn" data-modal="mail_reply">
-</form:form>
+</form>
 
 <%@include file = "./../js/validCheck.jsp"%>

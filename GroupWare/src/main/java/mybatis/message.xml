@@ -186,4 +186,11 @@
     	where msg_no = #{msg_no}
     </update>
     
+   <select id="selectOneNum" resultType="String">
+	    SELECT msg_no
+	    FROM message
+	    ORDER BY send_dtm DESC
+	    FETCH FIRST 1 ROW ONLY
+	</select>
+    
 </mapper>

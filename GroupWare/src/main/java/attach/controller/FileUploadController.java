@@ -22,7 +22,7 @@ public class FileUploadController {
 
 	private static final String GITHUB_API_URL;
 
-	private static final String GITHUB_TOKEN;  
+	private static final String GITHUB_TOKEN;
 
 	@ResponseBody
 	public String uploadFile(@RequestParam("file") MultipartFile file, HttpServletResponse response) {

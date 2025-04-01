@@ -43,6 +43,8 @@
 
 <form:form action="ymh_messageinsert.erp" commandName="mb" method="post" id="MessagePassForm">
 	<input type="hidden" value="${sessionScope.emp_no }" name="send_emp_no">
+	<input type="hidden" value="${mb.msg_no }" name="msg_no">
+	<input type="hidden" name="redirectPage" value="messageDetail.erp?msg_no=${mb.msg_no }">
     <div>
         <div>
             <!-- 화살표 버튼을 누르면 체크박스 목록이 나타남 -->
@@ -75,6 +77,12 @@
             <textarea cols="40" rows="5" name="msg_content" readonly>${mb.msg_content }</textarea>
         </div>
     </div>
+    
+    <div>
+		<div>
+			<label>${attach2.server_file_name }</label>	
+		</div>
+	</div>
 	<input type="button" value="메일 전송" id="submitBtn" data-modal="mail_pass">
 </form:form>
 
