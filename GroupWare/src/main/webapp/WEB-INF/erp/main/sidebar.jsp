@@ -102,7 +102,7 @@
     <div class="sideTr" data-action="page" data-target="calender">
         <i class="fas fa-calendar-check sideIcon"></i>캘린더
     </div>
-    <div class="sideTr" data-action="page" data-target="comment">
+    <div class="sideTr" data-action="page" data-target="commute">
         <i class="fas fa-clock sideIcon"></i>출퇴근
     </div>
     <div class="sideTr" data-action="page" data-target="vacation">

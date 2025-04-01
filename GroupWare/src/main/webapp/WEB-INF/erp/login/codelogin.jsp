@@ -5,7 +5,7 @@
 
 <h2>사원번호 입력</h2>
 
-<form action="write/email/login" method="post">
+<form action="write/email/login.erp" method="post">
 	 <input type="hidden" name="uuid" value="${uuid}" />
     <input type="hidden" name="empId" value="${empId}" />
 

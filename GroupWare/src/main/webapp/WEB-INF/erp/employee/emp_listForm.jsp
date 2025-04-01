@@ -33,7 +33,7 @@
  	</thead>
   
   	<tbody id="empTableBody">
-    <c:forEach var="emp" items="${lists}">
+    <c:forEach var="emp" items="${lists}">  
       <tr>
         <td>${emp.emp_no}</td>
         <td><a href="#"

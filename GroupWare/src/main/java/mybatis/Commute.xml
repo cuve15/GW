@@ -7,12 +7,12 @@
 
     <select id="selectOne" resultType="commute.model.CommuteBean">
         SELECT * FROM commute
-        WHERE work_date = #{work_date} AND emp_no = #{emp_no}
+        where emp_no = #{emp_no} AND ROWNUM = 1
     </select>
 
     <insert id="check_in">
-        INSERT INTO commute (work_date, emp_no, clock_in, clock_out)
-        VALUES (#{work_date}, #{emp_no}, #{clock_in}, NULL)
+        INSERT INTO commute (work_date, emp_no, clock_out)
+        VALUES (sysdate, #{emp_no}, NULL)
     </insert>
 
     <update id="check_out">

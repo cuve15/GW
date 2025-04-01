@@ -67,6 +67,13 @@ window.pageConfig = window.pageConfig || {
 				      tabs: [
 				        { label: "결제 관리", target: "appr" }
 				      ]
+				    },
+			    commute: {
+				      button: "",
+				      modal: "",
+				      tabs: [
+				        { label: "출퇴근 기록", target: "commute" }
+				      ]
 				    }
   };//본문을 헤더에 연결할 tabs 변수, button이름 & modal 연결할 url변수 설정을 위한 변
 	

@@ -15,12 +15,12 @@ public class CommuteDao {
     @Autowired
     SqlSessionTemplate sqlSessionTemplate;
 
-    public CommuteBean selectOne(Map<String, Object> map) {
-        return sqlSessionTemplate.selectOne(namespace + ".selectOne", map);
+    public CommuteBean selectOne(String emp_no) {
+        return sqlSessionTemplate.selectOne(namespace + ".selectOne", emp_no);
     }
 
-    public int check_in(Map<String, Object> map) {
-        return sqlSessionTemplate.insert(namespace + ".check_in", map);
+    public int check_in(String empId) {
+        return sqlSessionTemplate.insert(namespace + ".check_in", empId);
     }
 
     public int check_out(Map<String, Object> map) {

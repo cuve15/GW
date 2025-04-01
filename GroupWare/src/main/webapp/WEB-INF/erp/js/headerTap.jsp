@@ -25,7 +25,7 @@ window.tabSets = window.tabSets || {
 		    { label: "월간 일정", target: "calendarMonth" },
 		    { label: "주간 일정", target: "calendarWeek" }
 		  ],
-		  comment: [
+		  commute: [
 		    { label: "출퇴근 기록", target: "commute" }
 		  ],
 		  vacation: [

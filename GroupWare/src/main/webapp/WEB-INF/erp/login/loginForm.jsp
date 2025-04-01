@@ -22,7 +22,7 @@
 		<input type="submit" value="로그인">
 		</td>
 	</tr>
-
+ 
 </table>
 <h2>QR 코드 로그인</h2>
 

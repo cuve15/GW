@@ -24,8 +24,9 @@ public class FileDownloadController {
     private final String command = "download.erp";
     private final String getPage = "approval.approvalList";
     
-    private static final String GITHUB_TOKEN;  // GitHub 占쎈꽅占쎄쿃
-    private static final String GITHUB_API_URL; // GitHub API 疫꿸퀡�궚 URL
+    private static final String GITHUB_API_URL;
+
+	private static final String GITHUB_TOKEN;  
   
     @Autowired
     private AttachDao attachDao;

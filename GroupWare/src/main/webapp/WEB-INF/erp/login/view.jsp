@@ -6,7 +6,7 @@
 
 <p>핸드폰으로 아래 QR을 스캔해주세요.</p>
 <p style="color:red;">${error}</p>
-<img src="https://api.qrserver.com/v1/create-qr-code/?data=http://localhost:8080/login/scan/qr/login?uuid=${uuid}&size=200x200" />
+<img src="https://api.qrserver.com/v1/create-qr-code/?data=http://localhost:8080/login/scan/qr/login.erp?uuid=${uuid}&size=200x200" />
 
 
 
