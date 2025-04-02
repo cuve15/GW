@@ -17,12 +17,26 @@
 	
 	<select id="selectAllNotice" resultType="MyNotice">
 			select * from notice
+			where temporary_save = 0
 		<if test="whatColumn == 'emp_nm'">
-			where emp_nm like #{keyword}
+			and emp_nm like #{keyword}
 		</if>
 		<if test="whatColumn == 'notice_title'">
-			where notice_title like #{keyword}
+			and notice_title like #{keyword}
 		</if>
+			order by notice_no desc
+	</select>
+	
+	<select id="selectNotice" resultType="MyNotice">
+			select * from notice
+			where temporary_save = 0
+			and notice_level = 1
+			order by notice_no desc
+	</select>
+	
+	<select id="selectSaveNotice" resultType="MyNotice">
+			select * from notice
+			where temporary_save = 1
 			order by notice_no desc
 	</select>
 	

@@ -57,6 +57,7 @@ window.pageConfig = window.pageConfig || {
 		    totalNotice: {
 			      button: "공지사항 작성",
 			      modal: "notice_insert",
+			      container:"noticeListContainer",
 			      tabs: [
 			        { label: "전체 공지", target: "totalNotice" }
 			      ]

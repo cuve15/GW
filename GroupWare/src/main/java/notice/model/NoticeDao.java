@@ -60,6 +60,16 @@ public class NoticeDao {
 		return cnt;
 	}//saveNotice
 
+	public List<NoticeBean> selectNotice() {
+		List<NoticeBean> lists = sqlSessionTemplate.selectList(namespace + ".selectNotice");
+		return lists;
+	}//selectNotice
+
+	public List<NoticeBean> selectSaveNotice() {
+		List<NoticeBean> lists = sqlSessionTemplate.selectList(namespace + ".selectSaveNotice");
+		return lists;
+	}
+	
 	
 	
 }

@@ -4,10 +4,9 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/styles/notice_write_style.css">
 <script>
     function saveNotice() {
-        // 임시 저장을 위한 폼 전송
         var form = document.getElementById("notice_writeForm");
-        form.action = "notice_save.erp";  // 임시 저장 URL로 설정
-        form.submit();  // 폼을 submit하여 전송
+        form.action = "notice_save.erp";
+        form.submit();
     }
 </script>
 <form:form commandName="notice" method="post" action="notice_write.erp" id="notice_writeForm" enctype="multipart/form-data">

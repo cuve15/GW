@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file=".././common/common.jsp" %>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/styles/notice_list_style.css">
-
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/styles/notice_list_style.csss">
+<div id="noticeListContainer">
 <b>공지사항(등록된공지:${totalCount}/${pageInfo.pageNumber})</b>
 <br><br>
 <c:if test="${totalCount == 0 }">
@@ -25,53 +25,49 @@
 	</table>
 	<br><br>
 	<table border="1" width="700" align="center">
-		<c:forEach var="nl" items="${noticeLists }">
+		<c:forEach var="nl" items="${noticeLists1 }">
 			<tr>
-				<c:if test="${nl.notice_level == 1 && nl.temporary_save == 0}">
-					<td align="center" width="100">
-						필독
-					</td>
-					<td align="left" width="350">
-						<a href= "notice_content.erp?notice_no=${nl.notice_no }&pageNumber=${pageInfo.pageNumber}&whatColumn=${param.whatColumn}&keyword=${param.keyword}">${nl.notice_title }</a>
-					</td>
-					<td align="left" width="100">
-						${nl.emp_nm }
-					</td>
-					<td align="center" width="100">
-						<fmt:formatDate value="${nl.notice_dtm}" pattern="${nl.isWithin24Hours() ? 'HH:mm' : 'yyyy-MM-dd'}" />
-					</td>
-					<td align="center" width="50">
-						${nl.notice_views }
-					</td>
-				</c:if>
+				<td align="center" width="100">
+					필독
+				</td>
+				<td align="left" width="350">
+					<a href= "notice_content.erp?notice_no=${nl.notice_no }&pageNumber=${pageInfo.pageNumber}&whatColumn=${param.whatColumn}&keyword=${param.keyword}">${nl.notice_title }</a>
+				</td>
+				<td align="left" width="100">
+					${nl.emp_nm }
+				</td>
+				<td align="center" width="100">
+					<fmt:formatDate value="${nl.notice_dtm}" pattern="${nl.isWithin24Hours() ? 'HH:mm' : 'yyyy-MM-dd'}" />
+				</td>
+				<td align="center" width="50">
+					${nl.notice_views }
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<br><br>
 	<table border="1" width="700" align="center">
-		<c:forEach var="nl" items="${noticeLists }">
+		<c:forEach var="nl" items="${noticeLists0 }">
 			<tr>
-				<c:if test="${nl.temporary_save == 0}">
-					<td align="center" width="100">
-						${nl.dept_nm }
-					</td>
-					<td align="left" width="350">
-						<a href= "notice_content.erp?notice_no=${nl.notice_no }&pageNumber=${pageInfo.pageNumber}&whatColumn=${param.whatColumn}&keyword=${param.keyword}">${nl.notice_title }</a>
-						<%-- <a href="#"
-        	   class="detail-link"
-        	   data-url="notice_content.erp"
-        	   data-id="${nl.notice_no }">${nl.notice_title }</a> --%>
-					</td>
-					<td align="left" width="100">
-						${nl.emp_nm }
-					</td>
-					<td align="center" width="100">
-						<fmt:formatDate value="${nl.notice_dtm}" pattern="${nl.isWithin24Hours() ? 'HH:mm' : 'yyyy-MM-dd'}" />
-					</td>
-					<td align="center" width="50">
-						${nl.notice_views }
-					</td>
-				</c:if>
+				<td align="center" width="100">
+					${nl.dept_nm }
+				</td>
+				<td align="left" width="350">
+					<a href= "notice_content.erp?notice_no=${nl.notice_no }&pageNumber=${pageInfo.pageNumber}&whatColumn=${param.whatColumn}&keyword=${param.keyword}">${nl.notice_title }</a>
+					<%-- <a href="#"
+        	             class="detail-link"
+        	             data-url="notice_content.erp"
+        	             data-id="${nl.notice_no }">${nl.notice_title }</a> --%>
+				</td>
+				<td align="left" width="100">
+					${nl.emp_nm }
+				</td>
+				<td align="center" width="100">
+					<fmt:formatDate value="${nl.notice_dtm}" pattern="${nl.isWithin24Hours() ? 'HH:mm' : 'yyyy-MM-dd'}" />
+				</td>
+				<td align="center" width="50">
+					${nl.notice_views }
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -88,6 +84,7 @@
 </form>
 </center>
 </c:if>
-<p align="center">
-	${pageInfo.pagingHtml }
-</p>
+<div id="paging" align="center">
+	${pageInfo.pagingHtml}
+</div>
+</div>
