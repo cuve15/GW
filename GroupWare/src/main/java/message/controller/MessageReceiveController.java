@@ -31,7 +31,9 @@ public class MessageReceiveController {
 								@RequestParam(value="keyword", required = false) String keyword,
 								@RequestParam(value="pageNumber", required = false) String pageNumber) {
 		
-//		System.out.println("whatColumn : " + whatColumn);
+		System.out.println("receive whatColumn : " + whatColumn);
+		System.out.println("receive keyword : " + keyword);
+		System.out.println("receive pageNumber : " + pageNumber);
 		
 		ModelAndView mav = new ModelAndView();
 		

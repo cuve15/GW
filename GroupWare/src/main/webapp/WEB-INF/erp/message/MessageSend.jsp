@@ -22,7 +22,7 @@
 <div id=msgSendListContainer>
 	<div id="receivelist">
 	    <div style="display: flex; padding: 10px; font-weight: bold; border-bottom: 2px solid #000; gap: 20px;">
-		    <div style="min-width: 75px;">보낸 상태</div>
+		    <div style="min-width: 75px;">읽음 상태</div>
 		    <div style="min-width: 170px;">받는 사람</div>
 		    <div style="flex-grow: 1;">제목</div>
 		    <div style="min-width: 120px;">시간</div>
@@ -32,7 +32,7 @@
 			<c:forEach var="mb" items="${sendlist}">
 		        <div style="display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #ddd; gap: 20px;">
 		            <div style="min-width: 75px; text-align: center;">
-		                ${mb.send_yn == 'Y' ? '✔' : '✖'}
+		                ${mb.read_yn == 'Y' ? '✔' : '✖'}
 		            </div>
 		            <div style="min-width: 60px; font-weight: bold;">
 		                ${mb.receive_emp_name}
@@ -41,7 +41,7 @@
 		                    ${mb.receive_dept_nm} · ${mb.receive_position_nm}
 		            </div>
 		            <div style="flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-		                <a href="javascript:void(0)" onclick="loadMessageDetail('${mb.msg_no}')">
+		                <a href="javascript:void(0)" onclick="loadMessageDetail('${mb.msg_no},${pageInfo.pageNumber },${pageInfo.whatColumn },${pageInfo.keyword }')">
 		                    ${mb.msg_title}
 		                </a>
 		            </div>

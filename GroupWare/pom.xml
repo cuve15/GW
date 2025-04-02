@@ -187,57 +187,57 @@
 			<version>1.1.0</version>
 		</dependency>
 		<dependency>
-<groupId>org.springframework.security</groupId>
-<artifactId>spring-security-core</artifactId>
-<version>3.1.4.RELEASE</version>
-</dependency>
-<dependency>
-<groupId>org.springframework.security</groupId>
-<artifactId>spring-security-web</artifactId>
-<version>3.1.4.RELEASE</version>
-</dependency>
-<!--  JavaMail (OTP용)  -->
-<dependency>
-<groupId>javax.mail</groupId>
-<artifactId>mail</artifactId>
-<version>1.4.7</version>
-</dependency>
-<!--  QR 코드 라이브러리  -->
-<dependency>
-<groupId>com.google.zxing</groupId>
-<artifactId>core</artifactId>
-<version>3.5.2</version>
-</dependency>
-<dependency>
-<groupId>com.google.zxing</groupId>
-<artifactId>javase</artifactId>
-<version>3.5.2</version>
-</dependency>
-<!--  Base64 인코딩용 (JDK 1.6은 기본 없음)  -->
-<dependency>
-<groupId>commons-codec</groupId>
-<artifactId>commons-codec</artifactId>
-<version>1.15</version>
-</dependency>
-<!--  Jackson (JSON 응답 등 필요 시)  -->
-<dependency>
-<groupId>com.fasterxml.jackson.core</groupId>
-<artifactId>jackson-databind</artifactId>
-<version>2.13.4</version>
-</dependency>
-<dependency>
-<groupId>io.jsonwebtoken</groupId>
-<artifactId>jjwt</artifactId>
-<version>0.9.1</version>
-<!--  반드시 이 버전! JDK 1.6 호환  -->
-</dependency>
-<!--  WebSocket 지원  -->
-<dependency>
-<groupId>org.springframework</groupId>
-<artifactId>spring-websocket</artifactId>
-<version>4.3.30.RELEASE</version>
-<!--  Spring 3.x 기반에서 가능한 최대 안정 버전  -->
-</dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>3.1.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>3.1.4.RELEASE</version>
+		</dependency>
+		<!--  JavaMail (OTP용)  -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<!--  QR 코드 라이브러리  -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.5.2</version>
+		</dependency>
+			<!--  Base64 인코딩용 (JDK 1.6은 기본 없음)  -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.15</version>
+		</dependency>
+			<!--  Jackson (JSON 응답 등 필요 시)  -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.13.4</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+			<!--  반드시 이 버전! JDK 1.6 호환  -->
+		</dependency>
+		<!--  WebSocket 지원  -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>4.3.30.RELEASE</version>
+			<!--  Spring 3.x 기반에서 가능한 최대 안정 버전  -->
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

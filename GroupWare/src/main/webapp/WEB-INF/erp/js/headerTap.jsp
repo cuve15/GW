@@ -54,9 +54,14 @@ window.tabSets = window.tabSets || {
 	
 	function handleSidebar(btn){
 		
+		
 		const action = btn.dataset.action;//sidebar.jsp의 data-action
 		const target = btn.dataset.target;//sidebar.jsp의 data-target
 		
+		const whatColumn = btn.querySelector("input[name='whatColumn']")?.value || "";
+	    const keyword = btn.querySelector("input[name='keyword']")?.value || "";
+	    const pageNumber = btn.querySelector("input[name='pageNumber']")?.value || "1";
+	    
 		if(action === "page"){
 			const tabs = tabSets[target];//해당 메뉴의 탭세트 가져오기
 			
@@ -76,10 +81,10 @@ window.tabSets = window.tabSets || {
 				 
 				 bindTabEvents();
 				 //span을 클릭했을때 이벤트를만들어주는것(어떤 본문을 불러올지 연결하는 작업)
-				 loadContent(tabs[0].target);
+				 loadContent(tabs[0].target, { whatColumn, keyword, pageNumber });
 			 }else{
 				 //탭세트 없으면 바로 로딩
-			loadContent(target);
+			loadContent(target, { whatColumn, keyword, pageNumber });
 				 
 			 }
 		}else if(action === "modal"){

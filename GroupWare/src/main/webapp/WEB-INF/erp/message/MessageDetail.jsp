@@ -7,20 +7,23 @@
 
 <div style="display: flex; justify-content: flex-start; align-items: center; gap: 20px;">
     <h4>
-        <div class="sideTr" data-action="page" data-target="received" onclick="handleSidebar(this)">
-            <input type="hidden" value="${param.whatColumn}" name="whatColumn">
-            <input type="hidden" value="${param.keyword}" name="keyword">
-            <input type="hidden" value="${param.pageNumber}" name="pageNumber">
-            <i class="fas fa-paper-plane sideIcon"></i>< 받은 메일함
-        </div>
+    	<c:if test="${mb.send_emp_no != sessionScope.emp_no }">
+	        <div class="sideTr" data-action="page" data-target="received" onclick="handleSidebar(this)">
+	            <input type="hidden" value="${whatColumn}" name="whatColumn">
+	            <input type="hidden" value="${keyword}" name="keyword">
+	            <input type="hidden" value="${pageNumber}" name="pageNumber">
+	            <i class="fas fa-paper-plane sideIcon"></i>< 받은 메일함
+	        </div>
+        </c:if>
     </h4>
-    <h4>
-        <div class="sideTr" data-action="page" data-target="send" onclick="handleSidebar(this)">
-            <input type="hidden" value="${param.whatColumn}" name="whatColumn">
-            <input type="hidden" value="${param.keyword}" name="keyword">
-            <input type="hidden" value="${param.pageNumber}" name="pageNumber">
-            <i class="fas fa-paper-plane sideIcon"></i> 보낸 메일함 >
-        </div>
+    <h4><c:if test="${mb.send_emp_no == sessionScope.emp_no }">
+	        <div class="sideTr" data-action="page" data-target="send" onclick="handleSidebar(this)">
+	            <input type="hidden" value="${whatColumn}" name="whatColumn">
+	            <input type="hidden" value="${keyword}" name="keyword">
+	            <input type="hidden" value="${pageNumber}" name="pageNumber">
+	            <i class="fas fa-paper-plane sideIcon"></i>< 보낸 메일함
+	        </div>
+        </c:if>
     </h4>
 </div>
 
@@ -58,11 +61,9 @@
 	<div style="margin: 30px auto; width: 70%; padding: 10px 20px;">
 	    ${mb.msg_content }
 	</div>
-	<div>
-		<a href="download.erp?msg_no=${mb.msg_no}">다운로드
+	<div align="right" style="margin-bottom: 20px; position: relative; width: 70%;">
+		<a href="download.erp?msg_no=${mb.msg_no}">
+			${ab.org_file_name }
 		</a>
 	</div>
 </div>
-
-
-

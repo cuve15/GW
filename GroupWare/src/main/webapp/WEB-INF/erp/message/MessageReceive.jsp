@@ -42,7 +42,7 @@
 		                ${mb.send_dept_nm} · ${mb.send_position_nm}
 		            </div>
 		            <div style="flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-		                <a href="javascript:void(0)" onclick="loadMessageDetail('${mb.msg_no}')">
+		                <a href="javascript:void(0)" onclick="loadMessageDetail('${mb.msg_no},${pageInfo.pageNumber },${pageInfo.whatColumn },${pageInfo.keyword }')">
 		                    ${mb.msg_title}
 		                </a>
 		            </div>

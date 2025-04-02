@@ -80,7 +80,7 @@
     
     <div>
 		<div>
-			<label>${attach2.server_file_name }</label>	
+			<label>${attach2.org_file_name }</label>	
 		</div>
 	</div>
 	<input type="button" value="메일 전송" id="submitBtn" data-modal="mail_pass">

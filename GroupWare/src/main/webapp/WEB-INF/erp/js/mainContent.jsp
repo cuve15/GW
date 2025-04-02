@@ -88,12 +88,18 @@ window.pageConfig = window.pageConfig || {
 	window.currentPage ='';
 	
 
-		function loadContent(page) {
+		function loadContent(page, params = {}) {
+			
 			currentPage = page;
+			
+			let data = { page: page };
+			
+			Object.assign(data, params);
+			
 		  	$.ajax({
 		    	url: 'router.erp',
 		   		type: 'GET',
-		   		data: { page: page },
+		   		data: data,
 		   		success: function(html) {
 		     	   $('.main-content').html(html);
 
@@ -114,6 +120,7 @@ window.pageConfig = window.pageConfig || {
 		
 		
 		function bindTabEvents(){
+			
 			$(".tab").off("click").on("click",function(){
 				$(".tab").removeClass("active");
 				$(this).addClass("active");
@@ -218,11 +225,23 @@ window.pageConfig = window.pageConfig || {
 		    	  });
 		    	});//페이징 클릭시 본문만 바뀌는함수
 		
-		    	function loadMessageDetail(msg_no) { // YMH detail
+		    	function loadMessageDetail(msgDetail) { // YMH detail
+		    		
+		    		const params = msgDetail.split(',');
+		    	    const msg_no = params[0]; // msg_no는 첫 번째 값
+		    	    const pageNumber = params[1]; // pageNumber는 두 번째 값
+		    	    const whatColumn = params[2]; // whatColumn은 세 번째 값
+		    	    const keyword = params[3]; // keyword는 네 번째 값
+		    	    
 				    $.ajax({
 				        url: 'messageDetail.erp',  // 서버에서 메세지 상세 정보를 처리할 URL
 				        type: 'GET',
-				        data: { msg_no: msg_no },  // 메세지 ID를 서버로 전달
+				        data: { 
+				            msg_no: msg_no, 
+				            pageNumber: pageNumber, 
+				            whatColumn: whatColumn, 
+				            keyword: keyword 
+				        },  // 메세지 ID를 서버로 전달
 				        success: function(html) {
 				            $('.main-content').html(html);  // 가져온 HTML을 main-content에 삽입
 				        },

@@ -11,7 +11,20 @@ public class RouterController {
 	private final String gotoPage ="main/main";
 	
 	@RequestMapping(command)
-	public String doAction(@RequestParam("page") String page) {
+	public String doAction(@RequestParam("page") String page,
+							@RequestParam(value="whatColumn", required = false) String whatColumn,
+							@RequestParam(value="keyword", required = false) String keyword,
+							@RequestParam(value="pageNumber", required = false) String pageNumber) {
+		
+		System.out.println("router whatColumn : " + whatColumn);
+		System.out.println("router keyword : " + keyword);
+		System.out.println("router pageNumber : " + pageNumber);
+		
+		String queryParams = String.format("?whatColumn=%s&keyword=%s&pageNumber=%s",
+                whatColumn != null ? whatColumn : "",
+                keyword != null ? keyword : "",
+                pageNumber != null ? pageNumber : "1");
+		
 		System.out.println("page:"+page);
 		if ("emp".equals(page)) {
 		    return "redirect:/lsh_list.erp";
@@ -21,13 +34,12 @@ public class RouterController {
 			return "redirect:/cmm_list.erp";
 		}else if("authInfo".equals(page)) {
 			return "redirect:/empAuthInfo.erp";
-			
 		}else if("auth".equals(page)) {
 			return "redirect:/auth_list.erp";
 		}else if("received".equals(page)) {
-			return "redirect:/ymh_MessageReceive.erp";
+			return "redirect:/ymh_MessageReceive.erp"+ queryParams;
 		}else if("send".equals(page)) {
-			return "redirect:/ymh_MessageSend.erp";
+			return "redirect:/ymh_MessageSend.erp" + queryParams;
 		}else if("totalNotice".equals(page)){
 			return "redirect:/notice_list.erp";
 		} else if("appr".equals(page)){

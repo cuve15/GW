@@ -31,6 +31,10 @@ public class MessageSendController {
 								@RequestParam(value="keyword", required = false) String keyword,
 								@RequestParam(value="pageNumber", required = false) String pageNumber) {
 		
+		System.out.println("send whatColumn : " + whatColumn);
+		System.out.println("send keyword : " + keyword);
+		System.out.println("send pageNumber : " + pageNumber);
+		
 //		System.out.println("whatColumn : " + whatColumn);
 		
 		ModelAndView mav = new ModelAndView();

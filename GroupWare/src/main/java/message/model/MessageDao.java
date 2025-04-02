@@ -57,9 +57,20 @@ public class MessageDao {
 		return totalCount;
 	}
 
-	public MessageBean detailMessage(String msg_no) {
+	public MessageBean detailMessage(String msg_no, String emp_no) {
 		
-		sqlSessionTemplate.update(namespace + ".read_ynMessage",msg_no);
+		MessageBean mb1 = sqlSessionTemplate.selectOne(namespace + ".detailMessage",msg_no);
+		
+		if(emp_no.equals(mb1.getReceive_emp_no())) {
+			sqlSessionTemplate.update(namespace + ".read_ynMessage",msg_no);
+		}
+		
+		MessageBean mb = sqlSessionTemplate.selectOne(namespace + ".detailMessage",msg_no);
+		
+		return mb;
+	}
+	
+	public MessageBean detailMessage(String msg_no) {
 		
 		MessageBean mb = sqlSessionTemplate.selectOne(namespace + ".detailMessage",msg_no);
 		
