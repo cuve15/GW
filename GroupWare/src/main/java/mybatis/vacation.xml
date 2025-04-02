@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="vacation.model.Vaction">
+	<insert id="insertVaction">
+		insert into vacation(
+		vacation_no,
+		vacation_type,
+		req_emp_no,
+		vacation_reason,
+		start_dt,
+		end_dt,
+		total_days,
+		vacation_status)
+		values (
+		vacation_no_seq.nextval,
+		#{vacation_type},
+		#{req_emp_no},
+		#{vacation_reason},
+		#{start_dt},
+		#{end_dt},
+		(#{end_dt} -
+		#{start_dt} + 1),
+		'승인 대기'
+		)
+	</insert>
+
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*)
+		FROM vacation
+
+		<where>
+			<if test="whatColumn == 'vaction_type'">
+				vaction_type LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="whatColumn == 'req_emp_no'">
+				req_emp_no LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
+		ORDER BY start_dt
+		desc
+	</select>
+
+	<select id="getVacationList"
+		resultType="vacation.model.VacationBean">
+		SELECT *
+		FROM vacation
+
+	</select>
+
+	<update id="vacationApproval">
+    UPDATE vacation
+    SET
+        vacation_status = '승인',
+        appr_emp_no = #{appr_emp_no, jdbcType=VARCHAR}
+    WHERE vacation_no = #{vacation_no, jdbcType=INTEGER}
+</update>
+
+
+</mapper>

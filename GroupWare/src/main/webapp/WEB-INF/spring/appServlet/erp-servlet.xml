@@ -14,6 +14,6 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<context:component-scan base-package="employee, main, admin, utility, message,notice,attach,document,approval,Login,commute,qrGenerator,jwt" />
+	<context:component-scan base-package="employee, main, admin, utility, message,notice,attach,document,approval,Login,commute,qrGenerator,jwt, vacation" />
 </beans>
 <!-- *.erp => erp-servlet.xml -->

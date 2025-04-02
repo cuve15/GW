@@ -34,6 +34,10 @@ public class RouterController {
 			return "redirect:/approvalList.erp";
 		} else if("apprList".equals(page)) {
 			return "redirect:/approvalSignList.erp";
+		} else if("vacation".equals(page)) {
+			return "redirect:/vacationList.erp";
+		} else if("vacationApproval".equals(page)) {
+			return "redirect:/vacationList.erp";
 		}
 		else {
 		    return gotoPage;

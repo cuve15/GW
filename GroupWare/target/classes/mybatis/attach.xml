@@ -4,16 +4,18 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="attach.model.Attach">
-	<insert id="insertAttach" parameterType="attach.model.AttachBean">
-		INSERT INTO attach (attach_id, con_key3, org_file_name,
-		server_file_name,
-		file_size, insert_dtm)
-		VALUES (attach_id_seq.nextval,
-		#{con_key3}, #{org_file_name},
-		#{server_file_name}, #{file_size},
-		sysdate)
-	</insert>
-
+<insert id="insertAttach" parameterType="attach.model.AttachBean">
+    INSERT INTO attach (
+        attach_id, con_key1, con_key2, con_key3, 
+        org_file_name, server_file_name, file_size, insert_dtm
+    ) VALUES (
+        attach_id_seq.nextval,
+        CASE WHEN #{con_key1,jdbcType=VARCHAR} IS NOT NULL THEN #{con_key1,jdbcType=VARCHAR} ELSE NULL END,
+        CASE WHEN #{con_key2,jdbcType=VARCHAR} IS NOT NULL THEN #{con_key2,jdbcType=VARCHAR} ELSE NULL END,
+        CASE WHEN #{con_key3,jdbcType=VARCHAR} IS NOT NULL THEN #{con_key3,jdbcType=VARCHAR} ELSE NULL END,
+        #{org_file_name}, #{server_file_name}, #{file_size}, sysdate
+    )
+</insert>
 	<select id="getServerFileNameByDocNo" resultType="string">
 		SELECT a.server_file_name
 		FROM attach a

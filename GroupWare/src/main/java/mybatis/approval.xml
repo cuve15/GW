@@ -91,5 +91,8 @@
 		FROM appr_line
 		WHERE appr_order = #{position_cd}
 	</select>
-
+		<select id = "getApprovalCompleteList" resultType = "approval.model.ApprovalBean">
+		select * from appr_line
+		where appr_order = 0
+	</select>
 </mapper>

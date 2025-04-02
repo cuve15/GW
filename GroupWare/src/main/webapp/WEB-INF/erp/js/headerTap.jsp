@@ -30,7 +30,7 @@ window.tabSets = window.tabSets || {
 		  ],
 		  vacation: [
 		    { label: "휴가 확인", target: "vacation" },
-		    { label: "휴가 신청", target: "vacationRequest" }
+		    { label: "휴가 승인", target: "vacationApproval" }
 		  ],
 		  appr: [
 			  { label: "내 결재 요청", target: "appr" },

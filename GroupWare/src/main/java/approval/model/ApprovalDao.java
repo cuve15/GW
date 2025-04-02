@@ -75,4 +75,12 @@ public class ApprovalDao {
 		return getApprovalSignList;
 	}
 
+
+	public List<ApprovalBean> getApprovalCompleteList(Paging pageInfo, Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+		
+		List<ApprovalBean> getApprovalCompleteList = sqlSessionTemplate.selectList(namespace + ".getApprovalCompleteList", map, rowBounds);
+		return getApprovalCompleteList;
+	}
+
 }

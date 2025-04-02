@@ -20,6 +20,7 @@
 		<mapper resource="mybatis/document.xml" />
 		<mapper resource="mybatis/notice.xml" />
 		<mapper resource="mybatis/Login.xml" />
+		<mapper resource="mybatis/vacation.xml" />
 	</mappers>
 </configuration>
 

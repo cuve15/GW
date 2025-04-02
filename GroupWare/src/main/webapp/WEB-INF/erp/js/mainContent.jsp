@@ -67,7 +67,14 @@ window.pageConfig = window.pageConfig || {
 				      tabs: [
 				        { label: "결제 관리", target: "appr" }
 				      ]
-				    }
+				    },
+				    vacation: {
+					      button: "휴가 신청",
+					      modal: "vacation_insert",
+					      tabs: [
+					        { label: "휴가 관리", target: "vacation" }
+					      ]
+					    }
   };//본문을 헤더에 연결할 tabs 변수, button이름 & modal 연결할 url변수 설정을 위한 변
 	
 
@@ -79,7 +86,8 @@ window.pageConfig = window.pageConfig || {
 			  auth_insert: 'auth_insert.erp',
 			  mail_insert: 'ymh_messageinsert.erp',
 			  notice_insert: 'notice_write.erp',
-			  appr_insert : 'approval_insert.erp'
+			  appr_insert : 'approval_insert.erp',
+			  vacation_insert : 'vacation_insert.erp'
 			};//modal을 열면서 연결될 .erp 설정
 
 

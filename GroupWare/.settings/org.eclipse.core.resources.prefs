@@ -1,6 +1,8 @@
 eclipse.preferences.version=1
 encoding//src/main/java/Login/controller/LoginController.java=UTF-8
+encoding//src/main/java/approval/controller/ApprovalCompleteListController.java=UTF-8
 encoding//src/main/java/approval/controller/ApprovalRequestController.java=UTF-8
+encoding//src/main/java/approval/controller/ApprovalSignListController.java=UTF-8
 encoding//src/main/java/attach/controller/FileDownloadController.java=UTF-8
 encoding//src/main/java/attach/controller/FileUploadController.java=UTF-8
 encoding//src/main/java/commute/controller/CommuteListController.java=UTF-8
