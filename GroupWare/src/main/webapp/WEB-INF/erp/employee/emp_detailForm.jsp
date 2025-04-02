@@ -25,3 +25,9 @@
 		data-url="emp_update.erp"
 		data-id="${empBean.emp_no }">
 		수정</button>
+<div class="sideTr" data-action="page" data-target="emp" onclick="handleSidebar(this)">
+	<input type="hidden" value="${whatColumn}" name="whatColumn">
+	<input type="hidden" value="${keyword}" name="keyword">
+	<input type="hidden" value="${pageNumber}" name="pageNumber">
+	<i class="fas fa-paper-plane sideIcon"></i>< 사원정보
+</div>

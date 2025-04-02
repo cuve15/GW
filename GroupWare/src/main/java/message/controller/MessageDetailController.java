@@ -25,7 +25,7 @@ public class MessageDetailController {
 	AttachDao attachDao;
 	
 	@RequestMapping(command)
-	public String doAction(@RequestParam("msg_no") String msg_no,HttpServletRequest request, HttpSession session,
+	public String doAction(@RequestParam("no") String msg_no,HttpServletRequest request, HttpSession session,
 							@RequestParam(value="whatColumn", required = false) String whatColumn,
 							@RequestParam(value="keyword", required = false) String keyword,
 							@RequestParam(value="pageNumber", required = false) String pageNumber) {

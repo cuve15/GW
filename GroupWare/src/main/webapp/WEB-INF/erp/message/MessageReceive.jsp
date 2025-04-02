@@ -9,15 +9,15 @@
 	<div>
 		<h4>받은 메신저(${readCount }/${totalCount })</h4>
 	</div>
-	<div>
-		<select id="whatColumn">
-			<option value="">선택</option>
+	<form id="receiveSearchForm">
+		<select name="whatColumn">
+			<option value="">전체 선택</option>
 			<option value="send_emp_name">보낸 사람</option>
 			<option value="msg_title">제목</option>
 		</select>
-		<input type="text" id="keyword">
-		<input type="button" value="검색">
-	</div>
+		<input type="text" name="keyword" id="receiveKeywordInput">
+		<input type="button" value="검색" id="receiveSearchBtn">
+	</form>
 </div>
 
 <div id="msgReceiveListContainer">
@@ -42,7 +42,7 @@
 		                ${mb.send_dept_nm} · ${mb.send_position_nm}
 		            </div>
 		            <div style="flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-		                <a href="javascript:void(0)" onclick="loadMessageDetail('${mb.msg_no},${pageInfo.pageNumber },${pageInfo.whatColumn },${pageInfo.keyword }')">
+		                <a href="javascript:void(0)" onclick="Detail('${mb.msg_no},${pageInfo.pageNumber },${pageInfo.whatColumn },${pageInfo.keyword }', 'message')">
 		                    ${mb.msg_title}
 		                </a>
 		            </div>

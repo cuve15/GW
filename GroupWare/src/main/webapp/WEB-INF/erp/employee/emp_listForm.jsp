@@ -9,8 +9,8 @@
     <option value="emp_no">사원번호</option>
     <option value="emp_nm">사원이름</option>
   </select>
-  <input type="text" name="keyword" id="keywordInput">
-  <input type="button" value="검색" id="searchBtn">
+  <input type="text" name="keyword" id="empKeywordInput">
+  <input type="button" value="검색" id="empSearchBtn">
 </form>
 
 
@@ -36,10 +36,12 @@
     <c:forEach var="emp" items="${lists}">
       <tr>
         <td>${emp.emp_no}</td>
-        <td><a href="#"
-        	   class="detail-link"
-        	   data-url="emp_detail.erp"
-        	   data-id="${emp.emp_no}">${emp.emp_nm}</a></td>
+        <td>
+        	<a href="javascript:void(0)" 
+        	onclick="Detail('${emp.emp_no},${pageInfo.pageNumber },${pageInfo.whatColumn },${pageInfo.keyword }', 'emp')">
+		                    ${emp.emp_nm}
+			</a>
+       	</td>
         <td>${emp.emp_status_nm}</td>
         <td>${emp.dept_nm}</td>
         <td>${emp.position_nm}</td>

@@ -32,6 +32,11 @@ public class EmpListController {
 									 @RequestParam(value ="whatColumn", required =false)String whatColumn,
 									 @RequestParam(value="pageNumber",required = false) String pageNumber,
 									 HttpServletRequest request) {
+			
+			System.out.println("emp keyword : " + keyword);
+			System.out.println("emp whatColumn : " + whatColumn);
+			System.out.println("emp pageNumber : " + pageNumber);
+			
 			ModelAndView mav = new ModelAndView();
 
 		        Map<String, String> map = new HashMap<String,String>();

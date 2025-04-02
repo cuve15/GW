@@ -28,10 +28,10 @@
 	            and m.del_yn != 'R'
 	        </if>
 	        <if test="whatColumn == 'send_emp_name'">
-	            and send_emp_name like #{keyword, jdbcType=VARCHAR}
+	            and e1.emp_nm like #{keyword, jdbcType=VARCHAR}
 	        </if>
 	        <if test="whatColumn == 'msg_title'">
-	            and msg_title like #{keyword, jdbcType=VARCHAR}
+	            and m.msg_title like #{keyword, jdbcType=VARCHAR}
 	        </if>
 	    </where>
 	    order by send_dtm desc
@@ -60,7 +60,7 @@
 	            and del_yn != 'S'
 	        </if>
 	        <if test="whatColumn == 'send_emp_name'">
-	            and send_emp_name like #{keyword, jdbcType=VARCHAR}
+	            and e2.emp_nm like #{keyword, jdbcType=VARCHAR}
 	        </if>
 	        <if test="whatColumn == 'msg_title'">
 	            and msg_title like #{keyword, jdbcType=VARCHAR}
@@ -71,14 +71,15 @@
 
     <select id="ReceivetotalCount" resultType="int">
         select count(*) 
-        from message
+        from message m
+        LEFT JOIN employee e1 ON m.send_emp_no = e1.emp_no
         <where> 
 	        <if test="receive_emp_no != null">
 	        	and receive_emp_no = #{receive_emp_no, jdbcType=VARCHAR}
 	        	and del_yn != 'R'
 	        </if>
 	        <if test="whatColumn == 'send_emp_name'">
-	            and send_emp_name like #{keyword, jdbcType=VARCHAR}
+	            and e1.emp_nm like #{keyword, jdbcType=VARCHAR}
 	        </if>
 	        <if test="whatColumn == 'msg_title'">
 	            and msg_title like #{keyword, jdbcType=VARCHAR}
@@ -88,14 +89,15 @@
     
     <select id="SendtotalCount" resultType="int">
         select count(*) 
-        from message
+        from message m
+        LEFT JOIN employee e2 ON m.receive_emp_no = e2.emp_no
         <where> 
 	        <if test="send_emp_no != null">
 	        	and send_emp_no = #{send_emp_no, jdbcType=VARCHAR}
 	        	and del_yn != 'S'
 	        </if>
 	        <if test="whatColumn == 'send_emp_name'">
-	            and send_emp_name like #{keyword, jdbcType=VARCHAR}
+	            and e2.emp_nm like #{keyword, jdbcType=VARCHAR}
 	        </if>
 	        <if test="whatColumn == 'msg_title'">
 	            and msg_title like #{keyword, jdbcType=VARCHAR}
@@ -129,7 +131,8 @@
     
     <select id="readCount" resultType="int">
     	select count(*)
-    	from message 
+    	from message m
+    	LEFT JOIN employee e1 ON m.send_emp_no = e1.emp_no
     	<where> 
     		read_yn = 'N'
 	        <if test="receive_emp_no != null">
@@ -137,7 +140,7 @@
 	        	and del_yn != 'R'
 	        </if>
 	        <if test="whatColumn == 'send_emp_name'">
-	            and send_emp_name like #{keyword, jdbcType=VARCHAR}
+	            and e1.emp_nm like #{keyword, jdbcType=VARCHAR}
 	        </if>
 	        <if test="whatColumn == 'msg_title'">
 	            and msg_title like #{keyword, jdbcType=VARCHAR}
@@ -147,7 +150,8 @@
     
     <select id="sendCount" resultType="int">
     	select count(*)
-    	from message 
+    	from message m
+    	LEFT JOIN employee e2 ON m.receive_emp_no = e2.emp_no
     	<where> 
     		send_yn = 'N'
 	        <if test="send_emp_no != null">
@@ -155,7 +159,7 @@
 	        	and del_yn != 'S'
 	        </if>
 	        <if test="whatColumn == 'send_emp_name'">
-	            and send_emp_name like #{keyword, jdbcType=VARCHAR}
+	            and e2.emp_nm like #{keyword, jdbcType=VARCHAR}
 	        </if>
 	        <if test="whatColumn == 'msg_title'">
 	            and msg_title like #{keyword, jdbcType=VARCHAR}
