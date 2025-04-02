@@ -6,8 +6,8 @@
 <mapper namespace="QRLogin.QRLoginBean">
 
 	<insert id="save">
-		insert into login (uuid, emp_id, created_at)
-		values (#{uuid}, #{empId}, #{createdAt})
+		insert into login (uuid, emp_no, created_at)
+		values (#{uuid}, #{emp_no}, #{createdAt})
 	</insert>
 
 	<select id="selectone" resultType="int">
@@ -30,16 +30,32 @@
 	</select>
 
 	<select id="selectemail" resultType="string">
-		select email from employee where empId =# {empId}
+		select email from employee where emp_no =#{emp_no}
 
 	</select>
 	<select id="selectoneEmpID" resultType="int">
-		select count(*) from employee where empId = #{inputEmpId}
+		select count(*) from employee where emp_no = #{inputEmpId}
 	</select>
 
 	<select id="findEmployeeByEmpId">
-		select * from employee where empId =#{empId}
+		select * from employee where emp_no =#{emp_no}
 	</select>
 	
+	<insert id="savePwAuthCode">
+        INSERT INTO login (uuid, emp_no, code, created_at)
+        VALUES (#{uuid}, #{emp_no}, #{code}, SYSDATE)
+    </insert>
 
+	<select id="selectEmpNoByUuidAndCode" resultType="String">
+    SELECT emp_no
+    FROM login
+    WHERE uuid = #{uuid}
+      AND code = #{code}
+      AND created_at >= SYSDATE - (10 / 1440)  <!-- 최근 10분 이내 -->
+</select>
+
+<delete id="deletePwAuthCode">
+    DELETE FROM login WHERE uuid = #{uuid}
+</delete>
+	
 </mapper>

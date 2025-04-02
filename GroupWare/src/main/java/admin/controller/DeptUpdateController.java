@@ -34,7 +34,7 @@ public class DeptUpdateController {
 		DeptBean deptBean = deptDao.getOneDept(dept_cd);
 		
 		
-		List<DeptBean> lists = deptDao.getAllDept();
+		List<DeptBean> lists = deptDao.getDeptCd();
 		mav.addObject("lists",lists);
 		mav.addObject("deptBean",deptBean);
 		mav.setViewName(getPage);
@@ -48,7 +48,7 @@ public class DeptUpdateController {
 		ModelAndView mav = new ModelAndView();
 		if(result.hasErrors()) {
 			
-			List<DeptBean> lists = deptDao.getAllDept();
+			List<DeptBean> lists = deptDao.getDeptCd();
 			mav.addObject("lists",lists);
 			mav.addObject("deptBean", deptBean);
 			mav.setViewName(getPage);

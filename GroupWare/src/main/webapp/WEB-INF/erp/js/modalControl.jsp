@@ -27,7 +27,7 @@ function openModal(page) {
 			$('#modalContent').empty();
 		}//모달 닫기 함수
 		
-		$(document).on('click', '.open-edit-modal', function () {
+		$(document).on('click', '.open-edit-modal', function () {  
 			  const url = $(this).data('url');
 			  const id = $(this).data('id');
 

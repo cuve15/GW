@@ -119,4 +119,15 @@
 	emp_nm = #{emp_nm}, dept_cd = #{dept_cd},position_cd = #{position_cd},hire_date = #{hire_date},gender = #{gender},birth = #{birth},email = #{email},pw=#{pw}
 	where emp_no = #{emp_no}
 	</update>
+	
+	<select id="checkEmployee" resultType="int">
+	select count(*) from employee
+	   where emp_no = #{emp_no} and email=#{email} 
+	
+	</select>
+	<update id="updatePassword">
+    UPDATE employee SET pw = #{newPw}
+    WHERE emp_no = #{emp_no}
+</update>
+	
 </mapper>

@@ -21,12 +21,18 @@ public class EmpDetailController {
 	EmployeeDao empDao;
 	
 	@RequestMapping(value=command, method=RequestMethod.GET)
-	public ModelAndView doAction(@RequestParam("id") String emp_no) {
+	public ModelAndView doAction(@RequestParam("id") String emp_no,
+				 				 @RequestParam(value="keyword",required= false)String keyword,
+				 				 @RequestParam(value ="whatColumn", required =false)String whatColumn,
+				 				 @RequestParam(value="pageNumber",required = false) String pageNumber) {
 		
 		ModelAndView mav = new ModelAndView();
 		
 		EmployeeBean empBean = empDao.getOneEmp(emp_no);
 		mav.addObject("empBean",empBean);
+		mav.addObject("keyword",keyword);
+		mav.addObject("whatColumn",whatColumn);
+		mav.addObject("pageNumber",pageNumber);
 		mav.setViewName(getPage);
 		return mav;
 	}

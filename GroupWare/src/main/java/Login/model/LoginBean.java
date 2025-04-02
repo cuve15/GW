@@ -6,6 +6,14 @@ public class LoginBean {
 	private String code;
 	private String token;
 	private String created_at;
+	private String emp_no;
+	
+	public String getEmp_no() {
+		return emp_no;
+	}
+	public void setEmp_no(String emp_no) {
+		this.emp_no = emp_no;
+	}
 	public String getUuid() {
 		return uuid;
 	}

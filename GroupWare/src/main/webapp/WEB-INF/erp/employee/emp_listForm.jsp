@@ -9,8 +9,8 @@
     <option value="emp_no">사원번호</option>
     <option value="emp_nm">사원이름</option>
   </select>
-  <input type="text" name="keyword" id="keywordInput">
-  <input type="button" value="검색" id="searchBtn">
+  <input type="text" name="keyword" id="empkeywordInput">
+  <input type="button" value="검색" id="empsearchBtn">  
 </form>
 
 

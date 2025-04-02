@@ -20,10 +20,10 @@ public class LoginDao {
     @Autowired
     SqlSessionTemplate sqlSessionTemplate;
 
-    public void save(String uuid, String empId, String createdAt) {
+    public void save(String uuid, String emp_no, String createdAt) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("uuid", uuid);
-        map.put("empId", empId);
+        map.put("emp_no", emp_no);
         map.put("createdAt", createdAt);
         sqlSessionTemplate.insert(namespace + ".save", map);
     }
@@ -51,8 +51,8 @@ public class LoginDao {
         return date;
     }
 
-	public String selectemail(String empId) {
-		String email =sqlSessionTemplate.selectOne(namespace+".selectemail",empId);
+	public String selectemail(String emp_no) {
+		String email =sqlSessionTemplate.selectOne(namespace+".selectemail",emp_no);
 		return email;
 	}
 
@@ -61,8 +61,22 @@ public class LoginDao {
 		return cnt;
 	}
 
-	public EmployeeBean findEmployeeByEmpId(String empId) {
-		EmployeeBean employeeBean=sqlSessionTemplate.selectOne(namespace+".findEmployeeByEmpId",empId);
+	public EmployeeBean findEmployeeByEmpId(String emp_no) {
+		EmployeeBean employeeBean=sqlSessionTemplate.selectOne(namespace+".findEmployeeByEmpId",emp_no);
 		return employeeBean;
+	}
+
+	public void savePwAuthCode(Map<String, String> loginMap) {
+		sqlSessionTemplate.insert(namespace+".savePwAuthCode",loginMap);
+		
+	}
+
+	public String getEmpIdByUuidAndCode(Map<String, String> map) {
+		
+		return sqlSessionTemplate.selectOne(namespace+".selectEmpNoByUuidAndCode",map);
+	}
+
+	public void deletePwAuthCode(String uuid) {
+		sqlSessionTemplate.delete(namespace+".deletePwAuthCode",uuid);
 	}
 }

@@ -82,14 +82,14 @@ public class LoginController {
 	
 	//qr코드 실패시 사원번호 치는 form으로 넘기는 메서드라 잠시 주석
 //	@RequestMapping(value = "/write/empid/login.erp", method = RequestMethod.POST)
-//	public String writeEmpId(@RequestParam("empId") String inputEmpId,
+//	public String writeEmpId(@RequestParam("emp_no") String inputEmpId,
 //			@RequestParam("uuid") String uuid,
 //			HttpServletResponse response,
 //			Model model) {
 //
 //		int cnt=loginDao.selectoneEmpID(inputEmpId);
 //		if(cnt==1) {
-//			Cookie cookie=new Cookie("empId", inputEmpId);
+//			Cookie cookie=new Cookie("emp_no", inputEmpId);
 //			cookie.setMaxAge(365*24*60*60);
 //			cookie.setPath("/"); 
 //			response.addCookie(cookie);
@@ -103,9 +103,9 @@ public class LoginController {
 	//이메일 인증코드 전송 메서드 잠시 주석
 //	@RequestMapping(value = "/send/email/login.erp", method = RequestMethod.POST)
 //	public String sendEmail(@RequestParam("uuid") String uuid,
-//			@RequestParam("empId") String empId,
+//			@RequestParam("emp_no") String emp_no,
 //			Model model) {
-//		String email=loginDao.selectemail(empId);
+//		String email=loginDao.selectemail(emp_no);
 //
 //		String code = String.format("%06d", new Random().nextInt(999999));
 //
@@ -133,7 +133,7 @@ public class LoginController {
 //	@RequestMapping("/write/email/login.erp")
 //	public String verifyCode(@RequestParam("uuid") String uuid,
 //	                         @RequestParam("code") String code,
-//	                         @RequestParam("empId") String empId,
+//	                         @RequestParam("emp_no") String emp_no,
 //	                         HttpServletResponse response,
 //	                         Model model) {
 //
@@ -153,15 +153,15 @@ public class LoginController {
 //	        return "codelogin";
 //	    }
 //
-//	    EmployeeBean empBean = loginDao.findEmployeeByEmpId(empId);
+//	    EmployeeBean empBean = loginDao.findEmployeeByEmpId(emp_no);
 //	    String position = empBean.getPosition();     
 //	    String department = empBean.getDepartment(); 
 //
-//	    String accessToken = JwtUtil.createToken(empId, position, department);
+//	    String accessToken = JwtUtil.createToken(emp_no, position, department);
 //
 //	    response.setHeader("Set-Cookie", "access_token=" + accessToken + "; Path=/; HttpOnly; Max-Age=54000"); // 15시간
 //
-//	    model.addAttribute("empId", empId);
+//	    model.addAttribute("emp_no", emp_no);
 //	    return "/check_in.erp";
 //	}
 //

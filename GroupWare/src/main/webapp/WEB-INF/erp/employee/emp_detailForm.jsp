@@ -25,3 +25,10 @@
 		data-url="emp_update.erp"
 		data-id="${empBean.emp_no }">
 		수정</button>
+ <br><br>
+
+ <input type="hidden" id="pageNumber" value="${pageNumber}">
+<input type="hidden" id="whatColumn" value="${whatColumn}">
+<input type="hidden" id="keyword" value="${keyword}">
+ <a href="#" class="back-link">목록보기</a>
+ 

@@ -8,7 +8,7 @@
 <form action="/write/empid/login.erp" method="post">
 	<input type="hidden" name="uuid" value="${uuid}">
 
-    사원번호:<input type="text" name="empId">
+    사원번호:<input type="text" name="emp_no">
 <p style="color:red;">${error}</p>
 
     <input type="submit" value="다음" />

@@ -7,11 +7,18 @@ $(document).on('click','.detail-link',function(e){
 	
 	const url = $(this).data('url');
 	const id = $(this).data('id');
+	const pageNumber = $(this).data('page');
+	const whatColumn = $(this).data('column');
+	const keyword = $(this).data('keyword');
+	
 	
 	$.ajax({
 		url: url,
 		method:'GET',
-		data:{id: id},
+		data:{id: id,
+		      pageNumber: pageNumber,
+		      whatColumn: whatColumn,
+		      keyword: keyword},
 		success: function(html){
 			$('.main-content').html(html);
 		},
@@ -21,5 +28,9 @@ $(document).on('click','.detail-link',function(e){
 	});//ajax
 	
 });//detail link로 들어가기 위한 ajax
+
+
+
+
 
 </script>

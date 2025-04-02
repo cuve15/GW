@@ -14,6 +14,7 @@ window.pageConfig = window.pageConfig || {
     dept: {
       button: "부서등록",
       modal: "dept_insert",
+      container:"deptListContainer",
       tabs: [
         { label: "부서관리", target: "dept" }
       ]
@@ -21,6 +22,7 @@ window.pageConfig = window.pageConfig || {
     cmmCode: {
       button: "공통코드등록",
       modal: "cmmCode_insert",
+      container:"cmmCodeListContainer",
       tabs: [
         { label: "공통코드 관리", target: "cmmCode" }
       ]
@@ -165,44 +167,77 @@ window.pageConfig = window.pageConfig || {
 			  });
 			});
 			
-			
+			//공통 함수 정의
+			function createSearchHandler(config) {
+			  const {
+			    formSelector,
+			    searchBtnSelector,
+			    inputSelector,
+			    resultContainerSelector,
+			    url
+			  } = config;
+
+			  function performSearch() {
+			    const searchData = $(formSelector).serialize();
+			    console.log("📦 검색 데이터:", searchData);
+
+			    $.ajax({
+			      url: url,
+			      method: 'GET',
+			      data: searchData,
+			      success: function (html) {
+			        $('.main-content').html(html);
+			      },
+			      error: function () {
+			        alert('검색 실패');
+			      }
+			    });
+			  }
+
+			  // 이벤트 바인딩
+			  $(document).on('click', searchBtnSelector, function () {
+			    performSearch();
+			  });
+
+			  $(document).on('submit', formSelector, function (e) {
+			    e.preventDefault();
+			    performSearch();
+			  });
+
+			  if (inputSelector) {
+			    $(document).on('keydown', inputSelector, function (e) {
+			      if (e.key === 'Enter') {
+			        e.preventDefault();
+			        performSearch();
+			      }
+			    });
+			  }
+			}
+
+			//$(document).ready 안에서 기능별로 설정 호출
 			$(document).ready(function () {
-				console.log("검색함수 실행")
-				  function performSearch() {
-				    const searchData = $('#empSearchForm').serialize();
-				    console.log("📦 검색 데이터:", searchData);
 
-				    $.ajax({
-				      url: 'lsh_list.erp',
-				      method: 'GET',
-				      data: searchData,
-				      success: function (html) {
-				        $('.main-content').html(html);
-				      },
-				      error: function () {
-				        alert('검색 실패');
-				      }
-				    });
-				  }
+			  createSearchHandler({
+			    formSelector: '#empSearchForm',
+			    searchBtnSelector: '#empsearchBtn',
+			    inputSelector: '#empkeywordInput',
+			    url: 'lsh_list.erp'
+			  });
+			  createSearchHandler({
+			    formSelector: '#deptSearchForm',
+			    searchBtnSelector: '#deptsearchBtn',
+			    inputSelector: '#deptkeywordInput',
+			    url: 'dept_list.erp'
+			  });
+			  createSearchHandler({
+			    formSelector: '#cmmCodeSearchForm',
+			    searchBtnSelector: '#cmmCodesearchBtn',
+			    inputSelector: '#cmmCodekeywordInput',
+			    url: "cmm_list.erp"
+			  });
+			});
 
-				  $(document).on('click','#searchBtn',function () {
-				    performSearch();
-				  });
-
-				  $(document).on('submit','#empSearchForm', function (e) {
-				    e.preventDefault();
-				    performSearch();
-				  });
-
-				  $(document).on('keydown','#keywordInput', function (e) {
-				    if (e.key === 'Enter') {
-				      e.preventDefault();
-				      performSearch();
-				    }
-				  });
-				});//검색 클릭이나 엔터 누를식 본문만 바뀌는 함수
-
-
+	
 			
 		    $(document).on('click', '#paging a', function(e) {
 		    	  e.preventDefault(); // 기본 페이지 이동 막기
@@ -224,6 +259,27 @@ window.pageConfig = window.pageConfig || {
 		    	  });
 		    	});//페이징 클릭시 본문만 바뀌는함수
 		
+		    	$(document).ready(function(){
+		    		  $(document).on('click', '.back-link', function(e){
+		    		    e.preventDefault();
+
+		    		    const pageNumber = $('#pageNumber').val();
+		    		    const whatColumn = $('#whatColumn').val();
+		    		    const keyword = $('#keyword').val();
+
+		    		    const url = "lsh_list.erp?pageNumber=" + pageNumber +
+		    		                "&whatColumn=" + whatColumn +
+		    		                "&keyword=" + encodeURIComponent(keyword);
+
+		    		    $.get(url, function(html){
+		    		      $('.main-content').html(html);
+		    		    });
+		    		  });
+		    		});
+
+
+		    	
+		    	
 		    	function loadMessageDetail(msg_no) { // YMH detail
 				    $.ajax({
 				        url: 'messageDetail.erp',  // 서버에서 메세지 상세 정보를 처리할 URL
@@ -237,6 +293,9 @@ window.pageConfig = window.pageConfig || {
 				        }
 				    });
 				} // loadMessageDetail
+				
+				
+			
 				
 				function MessageReply(msg_no) {
 					currentModal = "mail_reply";

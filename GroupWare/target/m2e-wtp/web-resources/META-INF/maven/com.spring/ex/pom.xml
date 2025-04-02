@@ -198,10 +198,11 @@
 </dependency>
 <!--  JavaMail (OTP용)  -->
 <dependency>
-<groupId>javax.mail</groupId>
-<artifactId>mail</artifactId>
-<version>1.4.7</version>
+  <groupId>com.sun.mail</groupId>
+  <artifactId>jakarta.mail</artifactId>
+  <version>1.6.7</version> <!-- 또는 최신 안정버전 -->
 </dependency>
+
 <!--  QR 코드 라이브러리  -->
 <dependency>
 <groupId>com.google.zxing</groupId>

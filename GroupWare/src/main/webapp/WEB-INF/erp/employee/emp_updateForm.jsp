@@ -10,7 +10,7 @@
 <form:errors path="emp_no"/>
 <br><br>
 
-이름:<input type="text" name="emp_nm" value="${empBean.emp_nm }">
+이름:<input type="text" name="emp_nm" value="${empBean.emp_nm }">  
 <form:errors path="emp_nm"/>
 <br><br>
 

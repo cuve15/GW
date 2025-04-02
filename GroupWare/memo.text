@@ -1,82 +1,35 @@
-/* function loadMessageDetail(msg_no) { // YMH detail
-	          $.ajax({
-	              url: 'messageDetail.erp',  // 서버에서 메세지 상세 정보를 처리할 URL
-	              type: 'GET',
-	              data: { msg_no: msg_no },  // 메세지 ID를 서버로 전달
-	              success: function(html) {
-	                  $('.main-content').html(html);  // 가져온 HTML을 main-content에 삽입
-	              },
-	              error: function() {
-	                  alert('메세지 로딩 중 오류가 발생했습니다.');
-	              }
-	          });
-	      } // loadMessageDetail
-	      
-	      function MessageReply(msg_no) {
-	         currentModal = "mail_reply";
-	         $.ajax({
-	              url: 'ymh_messageReply.erp',  // 서버에서 메세지 상세 정보를 처리할 URL
-	              type: 'GET',
-	              data: { msg_no: msg_no },  // 메세지 ID를 서버로 전달
-	              success: function(html) {
-	                 $('#modalContent').html(html);
-	               $('#customModal').show();
-	              },
-	              error: function() {
-	                  alert("모달 로딩 실패");
-	              }
-	          });
-	      } // MessageReply */
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!-- login.jsp -->
 
 
-유효성
-$(document).off('click', '#submitBtn').on('click', '#submitBtn', function () {
-	/* const modalKey = $(this).data('modal'); */
-	  const config = insertValid[$(this).data('modal')];
-	  
-	  const formData = $('#' + config.formId).serialize();
-	  console.log("formData:"+formData)
-	  
-	  $.ajax({
-	    url: config.url,
-	    method: 'POST',
-	    data: formData,
-	    success: function (html) {
-	      // 유효성 검사 실패 시 다시 form 페이지를 반환 → formId 기준으로 판별
-	    	  const $newForm = $('<div>').html(html).find('form'); // 새로 받은 form만 추출
-	    	  const $currentForm = $('#' + config.formId); // 현재 있는 forms
-	    	  // 버튼 비활성화
-	          $('#submitBtn').prop('disabled', true);
-	    	  
-	    	  if ($newForm.length > 0) {
-	    		  console.log($newForm.length);
-	    		    $currentForm.replaceWith($newForm); // 기존 form만 덮어쓰기
-	    		  } else {
-	    		    $('#customModal').hide();
-	    		    $('#modalContent').empty();
-	    		    loadContent(config.target); // 본문 새로고침
-	    		 // 버튼 재활성화
-	                $('#submitBtn').prop('disabled', false);
+<form action="lsh_login.erp" method="post">
+<table border="1">
+	<tr>
+		<th>사원번호</th>
+		<td>
+		<input type="text" name="emp_no">
+		</td>
+	</tr>
+	<tr>
+		<th>비밀번호</th>
+		<td>
+		<input type="password" name="pw">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<input type="submit" value="로그인">
+		</td>
+	</tr>
+ 
+</table>
+<h2>QR 코드 로그인</h2>
 
-	    		  }
-	    		},
-	  
-	    error: function () {
-	      alert("등록 중 오류 발생");
-	    }
-	  });
-	});
+<input type="hidden" name="uuid" value="${uuid}">
 
-dept_insert: {
-		    url: "dept_insert.erp",
-		    formId: "deptForm",
-		    target: "dept"
-		  },
-		  cmmCode_insert: {
-		    url: "cmmCode_insert.erp",
-		    formId: "cmmCodeForm",
-		    target: "cmmCode"
-		  }
+<p>핸드폰으로 아래 QR을 스캔해주세요.</p>
+<p style="color:red;">${error}</p>
+<img src="https://api.qrserver.com/v1/create-qr-code/?data=http://localhost:8080/login/scan/qr/login?uuid=${uuid}&size=200x200" />
 
-
-
+</form>

@@ -2,6 +2,18 @@
     pageEncoding="UTF-8"%>
     <%@include file="./../common/common.jsp" %>
 
+<form id="deptSearchForm">
+  <select name="whatColumn">
+    <option value="">전체 선택</option>
+    <option value="dept_cd">부서코드</option>
+    <option value="dept_nm">부서이름</option>
+  </select>
+  <input type="text" name="keyword" id="deptkeywordInput">
+  <input type="button" value="검색" id="deptsearchBtn">  
+</form>
+
+
+
 <div id="deptListContainer">
 	<table border="1">
 		<tr>
@@ -26,5 +38,9 @@
 		</tr>	
 		</c:forEach>
 	</table>
+	<br><br>
+<div id="paging">
+${pageInfo.pagingHtml}
+</div>
 </div>
 

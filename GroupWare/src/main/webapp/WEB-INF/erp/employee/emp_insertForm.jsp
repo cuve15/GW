@@ -14,7 +14,7 @@
 <form:errors path="emp_nm"/>
 <br><br>
 
-비밀번호:<input type="password" name="pw" value="${empBean.pw }">
+비밀번호:<input type="password" name="pw" value="${empBean.pw }">  
 <form:errors path="pw"/>
 <br><br>
 

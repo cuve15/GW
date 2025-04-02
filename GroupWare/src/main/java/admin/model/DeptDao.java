@@ -1,10 +1,14 @@
 package admin.model;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import utility.Paging;
 
 @Component("DeptDao")
 public class DeptDao {
@@ -13,9 +17,10 @@ public class DeptDao {
 		@Autowired
 		SqlSessionTemplate sqlSessionTemplate;
 
-		public List<DeptBean> getAllDept() {
+		public List<DeptBean> getAllDept(Paging pageInfo, Map<String, String> map) {
 			
-			List<DeptBean> lists = sqlSessionTemplate.selectList(namespace+".getAllDept");
+			RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+			List<DeptBean> lists = sqlSessionTemplate.selectList(namespace+".getAllDept",map,rowBounds);
 			
 			return lists;
 		}
@@ -35,6 +40,20 @@ public class DeptDao {
 			int cnt = sqlSessionTemplate.update(namespace+".updateDept",deptBean);
 			
 			return cnt;
+		}
+
+		public int getTotalCount(Map<String, String> map) {
+			
+			int cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCount",map);
+			
+			return cnt;
+		}
+
+		public List<DeptBean> getDeptCd() {
+			
+			List<DeptBean> lists= sqlSessionTemplate.selectList(namespace+".getDeptCd");
+			
+			return lists;
 		}
 		
 }

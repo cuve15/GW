@@ -82,5 +82,17 @@ public class EmployeeDao {
 		return lists;
 	}
 
+	public boolean checkEmployee(Map<String, String> map) {
+		
+		int count = sqlSessionTemplate.selectOne(namespace + ".checkEmployee",map);
+		
+		return count == 1;
+	}
+
+	public void updatePassword(Map<String, String> map) {
+		sqlSessionTemplate.update(namespace+".updatePassword",map);
+		
+	}
+
 	
 }

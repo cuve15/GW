@@ -13,6 +13,8 @@
             top: 7vh; /* 헤더 높이와 일치 */
             padding: 15px;
             box-sizing: border-box;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .sideTr {

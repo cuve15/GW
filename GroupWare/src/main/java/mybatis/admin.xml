@@ -6,11 +6,28 @@
 <mapper namespace="admin.model.Admin">
 	<select id="getAllDept" resultType="admin.model.DeptBean">
 		select * from department
+		
+		<if test="whatColumn == 'dept_cd'">
+		where dept_cd like #{keyword}
+		</if>
+		<if test="whatColumn == 'dept_nm'">
+		where dept_nm like #{keyword}
+		</if>
 		order by dept_cd
+	</select>
+	
+	<select id="getDeptCd" resultType="admin.model.DeptBean">
+		select * from department
 	</select>
 	
 	<select id="getAllCmmCode" resultType = "admin.model.CmmCodeBean">
 		select * from cmm_code
+		<if test="whatColumn == 'cmm_class'">
+		where cmm_class like #{keyword}
+		</if>
+		<if test="whatColumn == 'cmm_nm'">
+		where cmm_nm like #{keyword}
+		</if>
 	</select>
 	
 	<select id="getAllAuthInfo" resultType="admin.model.AuthInfoBean">
@@ -72,4 +89,24 @@
 	insert into auth_info(auth_cd,auth_nm)
 	values(#{auth_cd},#{auth_nm})
 	</insert>
+	
+		<select id="getTotalCount" resultType="int">
+	select count(*) from department
+	<if test="whatColumn == 'dept_cd'">
+		where dept_cd like #{keyword}
+		</if>
+		<if test="whatColumn == 'dept_nm'">
+		where dept_nm like #{keyword}
+		</if>
+	</select>
+	
+	<select id="getTotalCountCmm" resultType="int">
+	select count(*) from cmm_code
+	<if test="whatColumn == 'cmm_class'">
+		where cmm_class like #{keyword}
+		</if>
+		<if test="whatColumn == 'cmm_nm'">
+		where cmm_nm like #{keyword}
+		</if>
+	</select>
 </mapper>

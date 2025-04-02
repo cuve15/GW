@@ -2,6 +2,7 @@ package admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import admin.model.DeptBean;
@@ -27,10 +29,13 @@ public class DeptInsertController {
 	
 	
 	@RequestMapping(value=command, method=RequestMethod.GET)
-	public ModelAndView doAction() {
+	public ModelAndView doAction(@RequestParam(value="keyword",required= false)String keyword,
+			 					 @RequestParam(value ="whatColumn", required =false)String whatColumn,
+			 					 @RequestParam(value="pageNumber",required = false) String pageNumber,
+			 					 HttpServletRequest request) {
 		
 		ModelAndView mav = new ModelAndView();
-		List<DeptBean> lists = deptDao.getAllDept();
+		List<DeptBean> lists= deptDao.getDeptCd();
 		mav.addObject("lists",lists);
 		mav.setViewName(getPage);
 		return mav;
@@ -42,7 +47,7 @@ public class DeptInsertController {
 		ModelAndView mav = new ModelAndView();
 		if(result.hasErrors()) {
 			
-			List<DeptBean> lists = deptDao.getAllDept();
+			List<DeptBean> lists = deptDao.getDeptCd();
 			mav.addObject("lists",lists);
 			mav.addObject("deptBean", deptBean);
 			mav.setViewName(getPage);

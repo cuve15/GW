@@ -32,11 +32,11 @@ public class SubmitLoginController {
 		return getPage;
 	}
 
-	@RequestMapping(value=command,method=RequestMethod.POST)
+	@RequestMapping(value=command,method=RequestMethod.POST) 
 	public ModelAndView doAction(@RequestParam("emp_no") String emp_no,
-			@RequestParam("pw") String pw,
-			HttpSession session,
-			HttpServletResponse response) {
+								 @RequestParam("pw") String pw,
+								 HttpSession session,
+								 HttpServletResponse response) {
 
 		ModelAndView mav = new ModelAndView();
 
@@ -56,7 +56,7 @@ public class SubmitLoginController {
 
 			String accessToken = JwtUtil.createToken(emp_no, empBean.getPosition_nm(), empBean.getDept_nm());
 
-			response.setHeader("Set-Cookie", "access_token=" + accessToken + "; Path=/; HttpOnly; Max-Age=54000"); // 15½Ã°£
+			response.setHeader("Set-Cookie", "access_token=" + accessToken + "; Path=/; HttpOnly; Max-Age=54000"); // 15ï¿½Ã°ï¿½
 
 			mav.addObject("emp_no",emp_no);
 			mav.setViewName("redirect:/check_in/commute.erp?access_token="+accessToken);
@@ -65,7 +65,7 @@ public class SubmitLoginController {
 			mav.setViewName(gotoPage);
 			return mav;
 		}else {
-			System.out.println("¿À·ù");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½");
 			mav.setViewName(getPage);
 			return mav;
 		}

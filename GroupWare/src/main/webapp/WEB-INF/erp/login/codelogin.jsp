@@ -7,7 +7,7 @@
 
 <form action="write/email/login.erp" method="post">
 	 <input type="hidden" name="uuid" value="${uuid}" />
-    <input type="hidden" name="empId" value="${empId}" />
+    <input type="hidden" name="emp_no" value="${emp_no}" />
 
 
 	인증번호:<input type="text" name="code">
